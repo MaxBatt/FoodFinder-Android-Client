@@ -10,6 +10,6 @@
     <string name="err_no_loc">Ihr aktueller Standort konnte nicht erfasst werden. Bitte überprüfen Sie die Einstellung für die Standorterfassung und starten Sie die App neu.</string>
     <string name="btn_settings">Einstellungen</string>
     <string name="btn_close">Schliessen</string>
-    <string name="msgViewUpdated">Sie sind hier:\n %1$s, %2$s</string>
+    <string name="msgViewUpdated">Sie sind hier:\n %1$s</string>
 
 </resources>

@@ -1,6 +1,7 @@
 package de.hdm.foodfinder.client;
 
 
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -55,18 +56,8 @@ public class MainActivity extends Activity {
 		// Vor dem Ausführen des Tasks LocationProvider ermitteln
 		@Override
 		protected void onPreExecute() {
-			// Locationprovider ermitteln
-			String locationProviders = Settings.Secure.getString(
-					getContentResolver(),
-					Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-
-			// System.out.println("Providers: " + locationProviders);
-
-			// Falls kein LocationProvider verfügbar ist,
-			// Dialog für Standorteinstellungen aufrufen
-			if (!locationProviders.contains("gps")
-					&& !locationProviders.contains("network")) {
-
+			//Falls weder GPS noch Netzwerk verfügbar ist, Meldung geben
+			if (!loc.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) &&!loc.locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))  {
 				showDialog(getString(R.string.err_no_loc_provider));
 			}
 		}
@@ -75,7 +66,7 @@ public class MainActivity extends Activity {
 		@Override
 		protected void onPostExecute(Boolean result) {
 
-			// Location auslesen
+			// 
 			if (!loc.gotLocation()) {
 				showDialog(getString(R.string.err_no_loc));
 			}
@@ -85,15 +76,8 @@ public class MainActivity extends Activity {
 				//ProgressBar ausblenden
 				progressBar.setVisibility(View.INVISIBLE);
 				//MsgView updaten
-				msgView.setText(getResources().getString(R.string.msgViewUpdated, loc.getLat(), loc.getLong()));
+				msgView.setText(getResources().getString(R.string.msgViewUpdated, loc.getStrLocation()));
 			}
-			
-
-			Toast.makeText(getApplicationContext(),
-
-			"Lat: " + loc.getLat() + "\n" + "Long: " + loc.getLong(),
-
-			Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
