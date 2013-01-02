@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/btnFindFood"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:text="@string/btn_find_food" />
+
+    <Button
+        android:id="@+id/btnAddRestaurant"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnFindFood"
+        android:layout_below="@+id/btnFindFood"
+        android:layout_marginTop="10dp"
+        android:text="@string/btn_add_restaurant" />
+
+    <TextView
+        android:id="@+id/msgView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="47dp"
+        android:text="@string/msg_view_init"
+        tools:context=".MainActivity" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/msgView"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
