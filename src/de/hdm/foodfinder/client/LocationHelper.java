@@ -20,19 +20,17 @@ import android.util.Log;
  */
 public class LocationHelper {
 
-	// variables to store lat and long
-	private float latitude = 0.0f;
-	private float longitude = 0.0f;
-
-	private Geocoder geocoder;
-
-	// flag for when we have co-ords
-	private boolean gotLocation = false;
-
 	// my location manager and listener
 	public LocationManager locationManager;
 	private MyLocationListener locationListener;
 	private Location currentLocation;
+	private Geocoder geocoder;
+	// variables to store lat and long
+	private String latitude;
+	private String longitude;
+
+	// flag for when we have co-ords
+	private boolean gotLocation = false;
 
 	/**
 	 * Constructor.
@@ -71,7 +69,7 @@ public class LocationHelper {
 		// called when the location service reports a change in location
 		public void onLocationChanged(Location location) {
 
-			LocationHelper.this.currentLocation = location;
+			// LocationHelper.this.currentLocation = location;
 
 			// now we have our location we can stop the service from sending
 			// updates
@@ -80,9 +78,13 @@ public class LocationHelper {
 			locationManager.removeUpdates(locationListener);
 
 			// change the flag to indicate we now have a location
-			if(location != null)
-				gotLocation = true;
-			
+			if (location != null) {
+				gotLocation 	= true;
+				currentLocation = location;
+				latitude 		= String.valueOf(location.getLatitude());
+				longitude 		= String.valueOf(location.getLongitude());
+			}
+
 		}
 
 		// called when the provider is disabled
@@ -110,7 +112,7 @@ public class LocationHelper {
 	 * 
 	 * @return - The current Latitude.
 	 */
-	public float getLat() {
+	public String getLat() {
 		return latitude;
 	}
 
@@ -119,7 +121,7 @@ public class LocationHelper {
 	 * 
 	 * @return - The current Longitude.
 	 */
-	public float getLong() {
+	public String getLong() {
 		return longitude;
 	}
 
@@ -139,7 +141,8 @@ public class LocationHelper {
 		try {
 			StringBuffer text = new StringBuffer();
 			List<Address> adresses = geocoder.getFromLocation(
-					currentLocation.getLatitude(), currentLocation.getLongitude(), 1);
+					currentLocation.getLatitude(),
+					currentLocation.getLongitude(), 1);
 			for (Address a : adresses) {
 				for (int i = 0; i < a.getMaxAddressLineIndex(); i++) {
 					text.append(a.getAddressLine(i) + ", ");
