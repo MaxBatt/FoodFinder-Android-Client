@@ -26,9 +26,10 @@
     <string name="spinner_label">Nationalitäten</string>
     <string name="btn_search">Suchen</string>
     <string name="dishes_toast">Mehrere Gerichte durch Kommata trennen</string>
+    <string name="err_no_connection">Fehler beim Verbinden zum Server</string>
 
     <string-array name="regions_array">
-        <item>Alle</item>
+        <item></item>
         <item>Afrikanisch</item>
         <item>Latein Amerikanisch</item>
         <item>Mexikanisch</item>
@@ -52,5 +53,7 @@
         <item>Osteuropäisch</item>
         <item>Russisch</item>     
     </string-array>
+    
+    
 
 </resources>

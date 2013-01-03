@@ -13,6 +13,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import com.google.gson.Gson;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -142,19 +143,23 @@ public class FindFoodActivity extends Activity {
 		// JSON Helper
 		Gson gson = new Gson();
 
-		//Position an Params anhängen
+		// Position an Params anhängen
 		params += "latitude=" + latitude + "&longitude=" + longitude;
-		
+
 		// Gerichte auslesen
 		String strDishes = etDishes.getText().toString();
-		// In Array packen
-		String[] dishes = strDishes.split(",");
-		// In JSON umwandeln und an params anhängen
-		params += "&dishes=" + gson.toJson(dishes).replace("\"", "'");
-
-		//Nationalität auslesen
-		params += "&region=" + regionSpinner.getSelectedItem().toString();
+		String[] dishes = new String[0];
+		if(strDishes.length() > 0){
+			// In Array packen
+			dishes = strDishes.split(",");
+		}
 		
+		// In JSON umwandeln und an params anhängen
+		params += "&dishes=" + gson.toJson(dishes).replace("\"", "'").replace(" ", "_");
+
+		// Nationalität auslesen
+		params += "&region=" + regionSpinner.getSelectedItem().toString();
+
 		// Kategorien-Liste leeren
 		categories.clear();
 		// Kategorien auslesen und Liste packen
@@ -170,13 +175,12 @@ public class FindFoodActivity extends Activity {
 		params += "&distance=" + String.valueOf(distanceSeeker.getProgress());
 
 		/*
-		Toast toast = Toast.makeText(FindFoodActivity.this, params,
-				Toast.LENGTH_SHORT);
-		toast.setGravity(Gravity.TOP, 0, 100);
-		toast.show();
-*/
+		 * Toast toast = Toast.makeText(FindFoodActivity.this, params,
+		 * Toast.LENGTH_SHORT); toast.setGravity(Gravity.TOP, 0, 100);
+		 * toast.show();
+		 */
 		SearchTask task = new SearchTask();
-		task.execute(new String[] { serverUrl + params});
+		task.execute(new String[] { serverUrl + params });
 	}
 
 	private class SearchTask extends AsyncTask<String, Void, String> {
@@ -185,8 +189,8 @@ public class FindFoodActivity extends Activity {
 			String response = "";
 			for (String url : urls) {
 				DefaultHttpClient client = new DefaultHttpClient();
-				HttpGet httpGet = new HttpGet(url);
 				try {
+					HttpGet httpGet = new HttpGet(url);
 					HttpResponse execute = client.execute(httpGet);
 					InputStream content = execute.getEntity().getContent();
 
@@ -199,6 +203,7 @@ public class FindFoodActivity extends Activity {
 
 				} catch (Exception e) {
 					e.printStackTrace();
+					this.cancel(true);
 				}
 			}
 			return response;
@@ -206,11 +211,25 @@ public class FindFoodActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(String result) {
-			
-			  Toast toast = Toast.makeText(FindFoodActivity.this, result,
-			  Toast.LENGTH_LONG); toast.setGravity(Gravity.TOP, 0, 100);
-			  toast.show();
-			
+
+			/*
+			 * Toast toast = Toast.makeText(FindFoodActivity.this, result,
+			 * Toast.LENGTH_LONG); toast.setGravity(Gravity.TOP, 0, 100);
+			 * toast.show();
+			 */
+
+			Intent myIntent = new Intent(FindFoodActivity.this,
+					RestaurantListActivity.class);
+			myIntent.putExtra("json", result);
+			startActivity(myIntent);
+
+		}
+
+		@Override
+		protected void onCancelled() {
+			Toast toast = Toast.makeText(FindFoodActivity.this,
+					getString(R.string.err_no_connection), Toast.LENGTH_SHORT);
+			toast.show();
 		}
 	}
 

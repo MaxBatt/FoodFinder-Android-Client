@@ -31,10 +31,13 @@ public final class R {
         public static final int cb7=0x7f08000a;
         public static final int distanceSeeker=0x7f08000c;
         public static final int etDishes=0x7f080000;
-        public static final int menu_settings=0x7f080013;
+        public static final int menu_settings=0x7f080016;
         public static final int msgView=0x7f080011;
         public static final int progressBar=0x7f080012;
         public static final int regionSpinner=0x7f080002;
+        public static final int restaurantAddress=0x7f080014;
+        public static final int restaurantDistance=0x7f080015;
+        public static final int restaurantName=0x7f080013;
         public static final int seekLabel=0x7f08000b;
         public static final int seekText=0x7f08000d;
         public static final int spinnerLabel=0x7f080001;
@@ -42,6 +45,7 @@ public final class R {
     public static final class layout {
         public static final int find_food=0x7f030000;
         public static final int main=0x7f030001;
+        public static final int restaurant_row=0x7f030002;
     }
     public static final class menu {
         public static final int main=0x7f070000;
@@ -63,6 +67,7 @@ public final class R {
         public static final int cb7=0x7f040013;
         public static final int dishes_toast=0x7f040019;
         public static final int distance_label=0x7f040014;
+        public static final int err_no_connection=0x7f04001a;
         public static final int err_no_loc=0x7f040007;
         public static final int err_no_loc_provider=0x7f040006;
         public static final int et_dishes=0x7f04000b;
