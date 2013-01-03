@@ -10,13 +10,14 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-
+import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -28,8 +29,8 @@ import android.widget.Toast;
 
 public class FindFoodActivity extends Activity {
 
-	private String serverUrl = "http://pfronhaus.dlinkddns.com:4567/restaurants?"; 
-	
+	private String serverUrl = "http://pfronhaus.dlinkddns.com:4567/restaurants?";
+
 	private String latitude;
 	private String longitude;
 
@@ -74,6 +75,13 @@ public class FindFoodActivity extends Activity {
 		regionSpinner = (Spinner) findViewById(R.id.regionSpinner);
 		btnSearch = (Button) findViewById(R.id.btnSearch);
 
+		// Spinner aus Array befüllen
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+				this, R.array.regions_array,
+				android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		regionSpinner.setAdapter(adapter);
+
 		// IDs an Checkboxen vergeben und Checkboxen in Liste packen
 		cb1.setId(1);
 		cb2.setId(2);
@@ -102,40 +110,71 @@ public class FindFoodActivity extends Activity {
 				toast.show();
 			}
 		});
-		
-		
-		//OnChange Listener für Umkreis Seekbar
-		distanceSeeker.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {       
 
-		    @Override       
-		    public void onStopTrackingTouch(SeekBar seekBar) {      
-		        // TODO Auto-generated method stub      
-		    }       
+		// OnChange Listener für Umkreis Seekbar
+		distanceSeeker
+				.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
-		    @Override       
-		    public void onStartTrackingTouch(SeekBar seekBar) {     
-		        // TODO Auto-generated method stub      
-		    }       
+					@Override
+					public void onStopTrackingTouch(SeekBar seekBar) {
+						// TODO Auto-generated method stub
+					}
 
-		    @Override       
-		    public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {     
-		        // TODO Auto-generated method stub      
+					@Override
+					public void onStartTrackingTouch(SeekBar seekBar) {
+						// TODO Auto-generated method stub
+					}
 
-		    	seekText.setText(String.valueOf(progress) + "km");
-		    }       
-		});   
+					@Override
+					public void onProgressChanged(SeekBar seekBar,
+							int progress, boolean fromUser) {
+						// TODO Auto-generated method stub
+
+						seekText.setText(String.valueOf(progress) + "km");
+					}
+				});
 
 	}
-	
+
 	public void searchRestaurants(View view) {
+		// Params, die an die URL gehängt werden
+		String params = "";
+		// JSON Helper
+		Gson gson = new Gson();
+
+		// Gerichte auslesen
+		String strDishes = etDishes.getText().toString();
+		// In Array packen
+		String[] dishes = strDishes.split(",");
+		// In JSON umwandeln und an params anhängen
+		params += "dishes=" + gson.toJson(dishes).replace("\"", "'");
+
+		//Nationalität auslesen
+		params += "&region=" + regionSpinner.getSelectedItem().toString();
 		
-		
-		
+		// Kategorien-Liste leeren
+		categories.clear();
+		// Kategorien auslesen und Liste packen
+		for (CheckBox cb : allCheckBoxes) {
+			if (cb.isChecked()) {
+				categories.add(cb.getId());
+			}
+		}
+		// Liste in JSON umwandeln und an Params hängen
+		params += "&cat=" + gson.toJson(categories);
+
+		// SeekBar Progress auslesen und an params anhägen
+		params += "&distance=" + String.valueOf(distanceSeeker.getProgress());
+
+		Toast toast = Toast.makeText(FindFoodActivity.this, params,
+				Toast.LENGTH_SHORT);
+		toast.setGravity(Gravity.TOP, 0, 100);
+		toast.show();
+
 		SearchTask task = new SearchTask();
-		task.execute(new String[] { serverUrl });
+		task.execute(new String[] { serverUrl + params});
 	}
-	
-	
+
 	private class SearchTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String... urls) {
@@ -163,12 +202,12 @@ public class FindFoodActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(String result) {
-			Toast toast = Toast.makeText(FindFoodActivity.this,
-					result, Toast.LENGTH_LONG);
-			toast.setGravity(Gravity.TOP, 0, 100);
-			toast.show();
+			
+			  Toast toast = Toast.makeText(FindFoodActivity.this, result,
+			  Toast.LENGTH_SHORT); toast.setGravity(Gravity.TOP, 0, 100);
+			  toast.show();
+			
 		}
 	}
-	
-	
+
 }
