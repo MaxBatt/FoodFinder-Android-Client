@@ -103,7 +103,9 @@
         android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp" 
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:max="30"
+        android:progress="5"/>
 
     <TextView
         android:id="@+id/seekText"

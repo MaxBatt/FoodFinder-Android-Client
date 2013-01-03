@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,6 +70,7 @@ public class FindFoodActivity extends Activity {
 		cb6 = (CheckBox) findViewById(R.id.cb6);
 		cb7 = (CheckBox) findViewById(R.id.cb7);
 		distanceSeeker = (SeekBar) findViewById(R.id.distanceSeeker);
+		seekText = (TextView) findViewById(R.id.seekText);
 		regionSpinner = (Spinner) findViewById(R.id.regionSpinner);
 		btnSearch = (Button) findViewById(R.id.btnSearch);
 
@@ -100,6 +102,28 @@ public class FindFoodActivity extends Activity {
 				toast.show();
 			}
 		});
+		
+		
+		//OnChange Listener für Umkreis Seekbar
+		distanceSeeker.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {       
+
+		    @Override       
+		    public void onStopTrackingTouch(SeekBar seekBar) {      
+		        // TODO Auto-generated method stub      
+		    }       
+
+		    @Override       
+		    public void onStartTrackingTouch(SeekBar seekBar) {     
+		        // TODO Auto-generated method stub      
+		    }       
+
+		    @Override       
+		    public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {     
+		        // TODO Auto-generated method stub      
+
+		    	seekText.setText(String.valueOf(progress) + "km");
+		    }       
+		});   
 
 	}
 	
