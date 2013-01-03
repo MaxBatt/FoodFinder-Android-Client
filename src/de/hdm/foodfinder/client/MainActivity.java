@@ -124,6 +124,13 @@ public class MainActivity extends Activity {
 					}).create().show();
 		}
 	}
+	
+	public void findFood(View view) {
+		Intent myIntent = new Intent(this, FindFoodActivity.class);
+		myIntent.putExtra("latitude", loc.getLat());
+		myIntent.putExtra("longitude",loc.getLong());
+		startActivity(myIntent);
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

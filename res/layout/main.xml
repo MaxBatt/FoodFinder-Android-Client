@@ -10,7 +10,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
-        android:text="@string/btn_find_food" />
+        android:text="@string/btn_find_food" 
+        android:onClick="findFood"
+        />
 
     <Button
         android:id="@+id/btnAddRestaurant"

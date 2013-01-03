@@ -11,5 +11,22 @@
     <string name="btn_settings">Einstellungen</string>
     <string name="btn_close">Schliessen</string>
     <string name="msgViewUpdated">Sie sind hier:\n %1$s</string>
+   
+    
+    <string name="et_dishes">Trage beliebige Gerichte ein</string>
+     <string name="cat_label">Kategorien</string>
+    <string name="cb1">Fleisch</string>
+    <string name="cb2">Fisch</string>
+    <string name="cb3">Gemüse</string>
+    <string name="cb4">Pasta</string>
+    <string name="cb5">Pizza</string>
+    <string name="cb6">Gesund</string>
+    <string name="cb7">Vegetarisch</string>
+     <string name="distance_label">Umkreis</string>
+    <string name="seek_text_init">10km</string>
+    <string name="seek_text_updated">%1$i km</string>
+    <string name="spinner_label">Nationalitäten</string>
+    <string name="btn_search">Suchen</string>
+    <string name="dishes_toast">Mehrere Gerichte durch Kommata trennen</string>
 
 </resources>
