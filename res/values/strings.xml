@@ -28,6 +28,7 @@
     <string name="dishes_toast">Mehrere Gerichte durch Kommata trennen</string>
 
     <string-array name="regions_array">
+        <item>Alle</item>
         <item>Afrikanisch</item>
         <item>Latein Amerikanisch</item>
         <item>Mexikanisch</item>

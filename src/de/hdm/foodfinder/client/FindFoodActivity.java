@@ -142,12 +142,15 @@ public class FindFoodActivity extends Activity {
 		// JSON Helper
 		Gson gson = new Gson();
 
+		//Position an Params anhängen
+		params += "latitude=" + latitude + "&longitude=" + longitude;
+		
 		// Gerichte auslesen
 		String strDishes = etDishes.getText().toString();
 		// In Array packen
 		String[] dishes = strDishes.split(",");
 		// In JSON umwandeln und an params anhängen
-		params += "dishes=" + gson.toJson(dishes).replace("\"", "'");
+		params += "&dishes=" + gson.toJson(dishes).replace("\"", "'");
 
 		//Nationalität auslesen
 		params += "&region=" + regionSpinner.getSelectedItem().toString();
