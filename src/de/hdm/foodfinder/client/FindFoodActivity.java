@@ -164,16 +164,17 @@ public class FindFoodActivity extends Activity {
 			}
 		}
 		// Liste in JSON umwandeln und an Params hängen
-		params += "&cat=" + gson.toJson(categories);
+		params += "&categories=" + gson.toJson(categories);
 
 		// SeekBar Progress auslesen und an params anhägen
 		params += "&distance=" + String.valueOf(distanceSeeker.getProgress());
 
+		/*
 		Toast toast = Toast.makeText(FindFoodActivity.this, params,
 				Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.TOP, 0, 100);
 		toast.show();
-
+*/
 		SearchTask task = new SearchTask();
 		task.execute(new String[] { serverUrl + params});
 	}
@@ -207,7 +208,7 @@ public class FindFoodActivity extends Activity {
 		protected void onPostExecute(String result) {
 			
 			  Toast toast = Toast.makeText(FindFoodActivity.this, result,
-			  Toast.LENGTH_SHORT); toast.setGravity(Gravity.TOP, 0, 100);
+			  Toast.LENGTH_LONG); toast.setGravity(Gravity.TOP, 0, 100);
 			  toast.show();
 			
 		}
