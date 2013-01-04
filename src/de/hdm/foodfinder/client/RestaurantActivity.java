@@ -2,6 +2,8 @@ package de.hdm.foodfinder.client;
 
 import com.google.gson.Gson;
 
+import de.foodfinder.client.helpers.Restaurant;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;

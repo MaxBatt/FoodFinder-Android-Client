@@ -13,6 +13,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+
+import de.foodfinder.client.helpers.Restaurant;
+import de.foodfinder.client.helpers.RestaurantArrayAdapter;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
