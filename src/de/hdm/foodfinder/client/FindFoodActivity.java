@@ -158,7 +158,7 @@ public class FindFoodActivity extends Activity {
 		params += "&dishes=" + gson.toJson(dishes).replace("\"", "'").replace(" ", "_");
 
 		// Nationalität auslesen
-		params += "&region=" + regionSpinner.getSelectedItem().toString();
+		params += "&region=" + regionSpinner.getSelectedItem().toString().replace(" ", "_");
 
 		// Kategorien-Liste leeren
 		categories.clear();
