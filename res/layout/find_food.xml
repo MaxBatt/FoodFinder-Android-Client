@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10" 
-        android:hint="@string/et_dishes"/>
+        android:hint="@string/et_dishes"
+        android:singleLine="true"/>
     
     <TextView
         android:id="@+id/spinnerLabel"
