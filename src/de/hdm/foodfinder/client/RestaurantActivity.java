@@ -16,13 +16,17 @@ public class RestaurantActivity extends Activity{
 		Bundle extras = getIntent().getExtras();
 		
 		Gson gson = new Gson();
-		String json = extras.getString("json");
+		String jsonRestaurant = extras.getString("restaurant");
 		
-		Restaurant restaurant = gson.fromJson(json, Restaurant.class);
+		Restaurant restaurant = gson.fromJson(jsonRestaurant, Restaurant.class);
 		
 		Toast toast = Toast.makeText(this,
-				restaurant.getAddress(), Toast.LENGTH_SHORT);
+				extras.getString("restaurant"), Toast.LENGTH_SHORT);
 		toast.show();
+		
+		Toast toast1 = Toast.makeText(this,
+				extras.getString("dishes"), Toast.LENGTH_SHORT);
+		toast1.show();
 
 	}
 
