@@ -26,12 +26,24 @@ public class Restaurant {
 		return name;
 	}
 	
-	public String getAddress(){
-		return street + " " + streetNumber + "\n" + postcode + " " + city;
-	}
+	
 
 	public String getDistance() {
 		return distance;
+	}
+
+	public void setOwnerID(String ownerID) {
+		this.ownerID = ownerID;
+	}
+
+	public String getOwnerID() {
+		return ownerID;
+	}
+	
+	
+	
+	public String getAddress(){
+		return street + " " + streetNumber + "\n" + postcode + " " + city;
 	}
 
 }

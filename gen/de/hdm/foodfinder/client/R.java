@@ -82,10 +82,12 @@ public final class R {
         public static final int err_no_loc=0x7f040007;
         public static final int err_no_loc_provider=0x7f040006;
         public static final int et_dishes=0x7f04000b;
+        public static final int loading_restaurant=0x7f040020;
         public static final int menu_settings=0x7f040002;
         public static final int msgViewUpdated=0x7f04000a;
         public static final int msg_view_init=0x7f040001;
         public static final int regions_label=0x7f04001b;
+        public static final int searching_restaurants=0x7f04001f;
         public static final int seek_text_init=0x7f040015;
         public static final int seek_text_updated=0x7f040016;
         public static final int spinner_label=0x7f040017;

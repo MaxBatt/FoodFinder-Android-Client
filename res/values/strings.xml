@@ -32,6 +32,8 @@
     <string name="categories_label">Kategorien</string>
     <string name="dishes_label">Gerichte</string>
     <string name="distance_label2">Entfernung</string>
+    <string name="searching_restaurants">Restaurants werden gesucht</string>
+    <string name="loading_restaurant">Restaurant wird geladen</string>
 
     <string-array name="regions_array">
         <item></item>

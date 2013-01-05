@@ -1,10 +1,22 @@
 package de.hdm.foodfinder.client;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import com.google.gson.Gson;
 
 import de.foodfinder.client.helpers.Restaurant;
+import de.foodfinder.client.helpers.RestaurantInfos;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +29,9 @@ public class RestaurantActivity extends Activity{
 	private TextView tvCategories;
 	private TextView tvDishes;
 	private TextView tvDistance;
-
+	
+	private String serverURL = "http://pfronhaus.dlinkddns.com:4567";
+	private Restaurant restaurant;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,12 +43,13 @@ public class RestaurantActivity extends Activity{
 		Gson gson = new Gson();
 		
 		String jsonRestaurant = extras.getString("restaurant");
-		Restaurant restaurant = gson.fromJson(jsonRestaurant, Restaurant.class);
-
-		//Strings für Gerichte, Kategorien und Regionen aus JSON Arrays implodieren
-		String dishes= implode("\n", gson.fromJson(extras.getString("dishes"), String[].class)); 
-		String categories= implode(", ", gson.fromJson(extras.getString("categories"), String[].class));
-		String regions= implode(", ", gson.fromJson(extras.getString("regions"), String[].class));
+		restaurant = gson.fromJson(jsonRestaurant, Restaurant.class);
+		
+		String url = serverURL + "/restaurant/"
+		+ restaurant.getId() + "/infos";
+		
+		getRestaurantInfos task = new getRestaurantInfos();
+		task.execute(new String[] { url});
 		
 		
 		tvName = (TextView) findViewById(R.id.restaurantName);
@@ -43,42 +58,72 @@ public class RestaurantActivity extends Activity{
 		tvCategories = (TextView) findViewById(R.id.restaurantCategories);
 		tvDishes = (TextView) findViewById(R.id.restaurantDishes);
 		tvDistance = (TextView) findViewById(R.id.restaurantDistance);
-		
-		tvName.setText(restaurant.getName());
-		tvAddress.setText(restaurant.getAddress());
-		tvRegions.setText(regions);
-		tvCategories.setText(categories);
-		tvDishes.setText(dishes);
-		tvDistance.setText(restaurant.getDistance());
+	}
 	
+	private class getRestaurantInfos extends AsyncTask<String, Void, String> {
 		
-		/*
-		Toast toast = Toast.makeText(this,
-				extras.getString("restaurant"), Toast.LENGTH_SHORT);
-		toast.show();
+		ProgressDialog waitingDialog = new ProgressDialog(RestaurantActivity.this);
 		
-		Toast toast1 = Toast.makeText(this,
-				extras.getString("dishes"), Toast.LENGTH_SHORT);
-		toast1.show();
+		@Override
+		protected void onPreExecute(){
+			waitingDialog.setTitle(getString(R.string.loading_restaurant));
+			waitingDialog.show();
+		}
 		
-		*/
-		
-		
+		@Override
+		protected String doInBackground(String... urls) {
+			
+			String response = "";
+			for (String url : urls) {
+				DefaultHttpClient client = new DefaultHttpClient();
+				try {
+					HttpGet httpGet = new HttpGet(url);
+					HttpResponse execute = client.execute(httpGet);
+					InputStream content = execute.getEntity().getContent();
 
+					BufferedReader buffer = new BufferedReader(
+							new InputStreamReader(content));
+					String s = "";
+					while ((s = buffer.readLine()) != null) {
+						response += s;
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					this.cancel(true);
+				}
+			}
+			return response;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			Gson gson = new Gson();
+			RestaurantInfos restaurantInfos = gson.fromJson(result, RestaurantInfos.class);
+			
+			//Toast.makeText(getApplicationContext(), dishes, Toast.LENGTH_SHORT).show(); 
+			
+			tvName.setText(restaurant.getName());
+			tvAddress.setText(restaurant.getAddress());
+			tvRegions.setText(restaurantInfos.getRegions());
+			tvCategories.setText(restaurantInfos.getCategories());
+			tvDishes.setText(restaurantInfos.getDishes());
+			tvDistance.setText(restaurant.getDistance());
+			
+			waitingDialog.dismiss();
+		}
+
+		@Override
+		protected void onCancelled() {
+			waitingDialog.dismiss();
+			
+			Toast toast = Toast.makeText(RestaurantActivity.this,
+					getString(R.string.err_no_connection), Toast.LENGTH_SHORT);
+			toast.show();
+		}
 	}
 	
 	
-	public static String implode(String separator, String... data) {
-	    StringBuilder sb = new StringBuilder();
-	    for (int i = 0; i < data.length - 1; i++) {
-	    //data.length - 1 => to not add separator at the end
-	        if (!data[i].matches(" *")) {//empty string are ""; " "; "  "; and so on
-	            sb.append(data[i]);
-	            sb.append(separator);
-	        }
-	    }
-	    sb.append(data[data.length - 1]);
-	    return sb.toString();
-	}
+	
 
 }

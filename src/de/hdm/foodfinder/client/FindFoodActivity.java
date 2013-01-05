@@ -13,6 +13,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import com.google.gson.Gson;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -183,7 +184,18 @@ public class FindFoodActivity extends Activity {
 		task.execute(new String[] { serverUrl + params });
 	}
 
+	
+	
 	private class SearchTask extends AsyncTask<String, Void, String> {
+		
+		ProgressDialog waitingDialog = new ProgressDialog(FindFoodActivity.this);
+		
+		@Override
+		protected void onPreExecute(){
+			waitingDialog.setTitle(getString(R.string.searching_restaurants));
+			waitingDialog.show();
+		}
+		
 		@Override
 		protected String doInBackground(String... urls) {
 			String response = "";
@@ -211,13 +223,9 @@ public class FindFoodActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(String result) {
-
-			/*
-			 * Toast toast = Toast.makeText(FindFoodActivity.this, result,
-			 * Toast.LENGTH_LONG); toast.setGravity(Gravity.TOP, 0, 100);
-			 * toast.show();
-			 */
-
+			
+			waitingDialog.dismiss();
+			
 			Intent myIntent = new Intent(FindFoodActivity.this,
 					RestaurantListActivity.class);
 			myIntent.putExtra("json", result);
