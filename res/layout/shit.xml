@@ -17,9 +17,9 @@
         android:id="@+id/restaurantRegions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/restaurantName"
         android:layout_below="@+id/restaurantName"
-        android:text="regions" 
-        android:layout_marginLeft="3dp"/>
+        android:text="regions" />
 
     <TextView
         android:id="@+id/categoriesLabel"
@@ -53,9 +53,9 @@
         android:id="@+id/restaurantDishes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/restaurantRegions"
         android:layout_below="@id/dishesLabel"
-        android:text="Dishes"
-        android:layout_marginLeft="3dp" />
+        android:text="Dishes" />
 
     <TextView
         android:id="@+id/distanceLabel"

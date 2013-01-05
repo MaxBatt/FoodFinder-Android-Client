@@ -11,13 +11,18 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.google.gson.Gson;
 
+import de.foodfinder.client.helpers.DoubleValue;
 import de.foodfinder.client.helpers.Restaurant;
 import de.foodfinder.client.helpers.RestaurantInfos;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,9 +34,11 @@ public class RestaurantActivity extends Activity{
 	private TextView tvCategories;
 	private TextView tvDishes;
 	private TextView tvDistance;
+	private ImageView photoView;
 	
 	private String serverURL = "http://pfronhaus.dlinkddns.com:4567";
 	private Restaurant restaurant;
+	private Gson gson;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -40,7 +47,8 @@ public class RestaurantActivity extends Activity{
 		setContentView(R.layout.restaurant);
 
 		Bundle extras = getIntent().getExtras();
-		Gson gson = new Gson();
+		
+		gson = new Gson();
 		
 		String jsonRestaurant = extras.getString("restaurant");
 		restaurant = gson.fromJson(jsonRestaurant, Restaurant.class);
@@ -58,9 +66,10 @@ public class RestaurantActivity extends Activity{
 		tvCategories = (TextView) findViewById(R.id.restaurantCategories);
 		tvDishes = (TextView) findViewById(R.id.restaurantDishes);
 		tvDistance = (TextView) findViewById(R.id.restaurantDistance);
+		photoView = (ImageView) findViewById(R.id.photoView);
 	}
 	
-	private class getRestaurantInfos extends AsyncTask<String, Void, String> {
+	private class getRestaurantInfos extends AsyncTask<String, Void, DoubleValue> {
 		
 		ProgressDialog waitingDialog = new ProgressDialog(RestaurantActivity.this);
 		
@@ -71,7 +80,7 @@ public class RestaurantActivity extends Activity{
 		}
 		
 		@Override
-		protected String doInBackground(String... urls) {
+		protected DoubleValue doInBackground(String... urls) {
 			
 			String response = "";
 			for (String url : urls) {
@@ -93,16 +102,34 @@ public class RestaurantActivity extends Activity{
 					this.cancel(true);
 				}
 			}
-			return response;
+			
+			RestaurantInfos restaurantInfos = gson.fromJson(response, RestaurantInfos.class);
+			String imgURL = restaurantInfos.getPhotos();
+			
+			Bitmap bitmap = null;
+	        try {
+	            InputStream in = new java.net.URL(imgURL).openStream();
+	            bitmap = BitmapFactory.decodeStream(in);
+	        } catch (Exception e) {
+	            Log.d("Error", e.getMessage());
+	            e.printStackTrace();
+	        }
+			
+	        DoubleValue result = new DoubleValue();
+	        result.setRestaurantInfos(response);
+	        result.setBitmap(bitmap);
+			return result;
+			
+			
 		}
 
 		@Override
-		protected void onPostExecute(String result) {
-			Gson gson = new Gson();
-			RestaurantInfos restaurantInfos = gson.fromJson(result, RestaurantInfos.class);
-			
+		protected void onPostExecute(DoubleValue result) {
+			RestaurantInfos restaurantInfos = gson.fromJson(result.getRestaurantInfos(), RestaurantInfos.class);
+			Bitmap bitmap = result.getBitmap();
 			//Toast.makeText(getApplicationContext(), dishes, Toast.LENGTH_SHORT).show(); 
 			
+			photoView.setImageBitmap(bitmap);
 			tvName.setText(restaurant.getName());
 			tvAddress.setText(restaurant.getAddress());
 			tvRegions.setText(restaurantInfos.getRegions());

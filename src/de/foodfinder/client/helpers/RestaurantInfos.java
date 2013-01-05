@@ -11,7 +11,7 @@ public class RestaurantInfos {
 	
 	
 	public String getDishes() {
-		return implode("\n", dishes);
+		return " - " + implode("\n - ", dishes);
 	}
 	
 	public String getRegions() {
@@ -23,7 +23,7 @@ public class RestaurantInfos {
 	}
 	
 	public String getPhotos() {
-		return implode(", ", photos);
+		return photos[0];
 	}
 	
 	public String getAvgRating() {

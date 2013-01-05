@@ -23,37 +23,40 @@
     <string name="distance_label">Umkreis</string>
     <string name="seek_text_init">10km</string>
     <string name="seek_text_updated">%1$i km</string>
-    <string name="spinner_label">Nationalität</string>
+    <string name="spinner_label">Nationalität/Region</string>
     <string name="btn_search">Suchen</string>
     <string name="dishes_toast">Mehrere Gerichte durch Kommata trennen</string>
     <string name="err_no_connection">Fehler beim Verbinden zum Server</string>
     
-    <string name="regions_label">Nationalität(en)</string>
-    <string name="categories_label">Kategorien</string>
+    <string name="categories_label">Kategorien: </string>
     <string name="dishes_label">Gerichte</string>
-    <string name="distance_label2">Entfernung</string>
+    <string name="distance_label2">Entfernung: </string>
+    <string name="address_label">Adresse</string>
     <string name="searching_restaurants">Restaurants werden gesucht</string>
     <string name="loading_restaurant">Restaurant wird geladen</string>
 
     <string-array name="regions_array">
         <item></item>
-        <item>Afrikanisch</item>
-        <item>Latein Amerikanisch</item>
-        <item>Mexikanisch</item>
-        <item>USA und Canada</item>
+        <item>Deutsch</item>
+        <item>Schwäbisch</item>
+        <item>Bayrisch</item>
+        <item>Italienisch</item>
+        <item>Amerikanisch</item>
         <item>Chinesisch</item>
+        <item>Vietnamesisch</item>
+        <item>Griechisch</item>
+        <item ></item>
+        <item>Afrikanisch</item>
+        <item>Australisch</item>
+        <item>Französisch</item>
+        <item>Englisch</item>
         <item>Indisch</item>
         <item>Koreanisch</item>
-        <item>Thailändisch</item>
-        <item>Vietnamesisch</item>
-        <item>Australisch</item>
-        <item>Deutsch</item>
-        <item>Französisch</item>
-        <item>Griechisch</item>
-        <item>Englisch</item>
-        <item>Italienisch</item>
+        <item>Latein Amerikanisch</item>
+        <item>Mexikanisch</item>
         <item>Portugiesisch</item>
         <item>Spanisch</item>
+        <item>Thailändisch</item>
         <item>Türkisch</item>
         <item>Ungarisch</item>
         <item>Karibisch</item>
