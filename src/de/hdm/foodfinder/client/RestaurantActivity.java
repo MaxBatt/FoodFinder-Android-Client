@@ -2,7 +2,8 @@ package de.hdm.foodfinder.client;
 
 import java.io.InputStream;
 import com.google.gson.Gson;
-import de.foodfinder.client.helpers.Restaurant;
+
+import de.hdm.foodfinder.client.helpers.Restaurant;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

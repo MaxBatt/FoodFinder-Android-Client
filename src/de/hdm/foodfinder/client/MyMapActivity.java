@@ -16,7 +16,7 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 import com.google.gson.Gson;
 
-import de.foodfinder.client.helpers.Restaurant;
+import de.hdm.foodfinder.client.helpers.Restaurant;
 
 public class MyMapActivity extends MapActivity {
 

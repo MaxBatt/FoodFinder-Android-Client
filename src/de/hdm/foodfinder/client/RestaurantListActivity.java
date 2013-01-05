@@ -7,8 +7,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
-import de.foodfinder.client.helpers.Restaurant;
-import de.foodfinder.client.helpers.RestaurantArrayAdapter;
+import de.hdm.foodfinder.client.helpers.Restaurant;
+import de.hdm.foodfinder.client.helpers.RestaurantArrayAdapter;
 import android.app.ListActivity;
 import android.content.Intent;
 
