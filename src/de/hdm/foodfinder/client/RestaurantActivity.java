@@ -1,32 +1,16 @@
 package de.hdm.foodfinder.client;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.util.ArrayList;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import com.google.gson.Gson;
-
-import de.foodfinder.client.helpers.DoubleValue;
 import de.foodfinder.client.helpers.Restaurant;
-import de.foodfinder.client.helpers.RestaurantInfos;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,7 +28,6 @@ public class RestaurantActivity extends Activity {
 	private TextView tvDistance;
 	private ImageView photoView;
 
-	private String serverURL = "http://pfronhaus.dlinkddns.com:4567";
 	private Restaurant restaurant;
 	private Gson gson;
 	String actLatitude;
@@ -59,7 +42,7 @@ public class RestaurantActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		actLatitude = extras.getString("actLatitude");
 		actLongitude = extras.getString("actLongitude");
-		
+
 		gson = new Gson();
 
 		String jsonRestaurant = extras.getString("restaurant");
@@ -73,7 +56,7 @@ public class RestaurantActivity extends Activity {
 		tvDistance = (TextView) findViewById(R.id.restaurantDistance);
 		photoView = (ImageView) findViewById(R.id.photoView);
 		photoView.setOnClickListener(imageListener);
-		
+
 		tvName.setText(restaurant.getName());
 		tvAddress.setText(restaurant.getAddress());
 		tvRegions.setText(restaurant.getRegions());
@@ -81,15 +64,14 @@ public class RestaurantActivity extends Activity {
 		tvDishes.setText(restaurant.getDishes());
 		tvDistance.setText(restaurant.getDistance());
 
-		if(restaurant.getPhotos().length() > 0){
+		if (restaurant.getPhotos().length() > 0) {
 			getPhoto task = new getPhoto();
-			task.execute(restaurant.getPhotos() );
+			task.execute(restaurant.getPhotos());
 			System.out.println("nich leer");
-		}
-		else{
+		} else {
 			photoView.setImageBitmap(null);
 		}
-		
+
 	}
 
 	private class getPhoto extends AsyncTask<String, Void, Bitmap> {

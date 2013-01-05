@@ -79,10 +79,10 @@ public class LocationHelper {
 
 			// change the flag to indicate we now have a location
 			if (location != null) {
-				gotLocation 	= true;
+				gotLocation = true;
 				currentLocation = location;
-				latitude 		= String.valueOf(location.getLatitude());
-				longitude 		= String.valueOf(location.getLongitude());
+				latitude = String.valueOf(location.getLatitude());
+				longitude = String.valueOf(location.getLongitude());
 			}
 
 		}

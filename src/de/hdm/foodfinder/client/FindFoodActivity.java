@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -47,10 +46,7 @@ public class FindFoodActivity extends Activity {
 	private SeekBar distanceSeeker;
 	private TextView seekText;
 	private Spinner regionSpinner;
-	private Button btnSearch;
 
-	private ArrayList<Integer> categories = new ArrayList<Integer>();
-	private ArrayList<String> dishes = new ArrayList<String>();
 	private final List<CheckBox> allCheckBoxes = new ArrayList<CheckBox>();
 
 	@Override
@@ -76,7 +72,6 @@ public class FindFoodActivity extends Activity {
 		distanceSeeker.setProgress(5);
 		seekText = (TextView) findViewById(R.id.seekText);
 		regionSpinner = (Spinner) findViewById(R.id.regionSpinner);
-		btnSearch = (Button) findViewById(R.id.btnSearch);
 
 		// Spinner aus Array befüllen
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -151,19 +146,21 @@ public class FindFoodActivity extends Activity {
 		// Gerichte auslesen
 		String strDishes = etDishes.getText().toString();
 		String[] dishes = new String[0];
-		if(strDishes.length() > 0){
+		if (strDishes.length() > 0) {
 			// In Array packen
 			dishes = strDishes.split(",");
 		}
-		
+
 		// In JSON umwandeln und an params anhängen
-		params += "&dishes=" + gson.toJson(dishes).replace("\"", "'").replace(" ", "_");
+		params += "&dishes="
+				+ gson.toJson(dishes).replace("\"", "'").replace(" ", "_");
 
 		// Nationalität auslesen
-		params += "&region=" + regionSpinner.getSelectedItem().toString().replace(" ", "_");
+		params += "&region="
+				+ regionSpinner.getSelectedItem().toString().replace(" ", "_");
 
 		// Kategorien-Liste leeren
-		categories.clear();
+		ArrayList<Integer> categories = new ArrayList<Integer>();
 		// Kategorien auslesen und Liste packen
 		for (CheckBox cb : allCheckBoxes) {
 			if (cb.isChecked()) {
@@ -185,18 +182,16 @@ public class FindFoodActivity extends Activity {
 		task.execute(new String[] { serverUrl + params });
 	}
 
-	
-	
 	private class SearchTask extends AsyncTask<String, Void, String> {
-		
+
 		ProgressDialog waitingDialog = new ProgressDialog(FindFoodActivity.this);
-		
+
 		@Override
-		protected void onPreExecute(){
+		protected void onPreExecute() {
 			waitingDialog.setTitle(getString(R.string.searching_restaurants));
 			waitingDialog.show();
 		}
-		
+
 		@Override
 		protected String doInBackground(String... urls) {
 			String response = "";
@@ -224,7 +219,7 @@ public class FindFoodActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(String result) {
-			
+
 			waitingDialog.dismiss();
 			Intent myIntent = new Intent(FindFoodActivity.this,
 					RestaurantListActivity.class);

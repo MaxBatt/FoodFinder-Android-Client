@@ -44,10 +44,8 @@ public class RestaurantArrayAdapter extends ArrayAdapter<Restaurant> {
 		distance.setText(restaurants.get(position).getDistance());
 		regions.setText(restaurants.get(position).getRegions());
 
-
 		return rowView;
 
 	}
-
 
 }

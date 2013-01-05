@@ -1,6 +1,5 @@
 package de.foodfinder.client.helpers;
 
-import java.util.ArrayList;
 
 public class Restaurant {
 	private String id;
@@ -50,6 +49,10 @@ public class Restaurant {
 	
 	public String getAddress(){
 		return street + " " + streetNumber + "\n" + postcode + " " + city;
+	}
+
+	public String getCountry() {
+		return country;
 	}
 
 	public String getLatitude() {

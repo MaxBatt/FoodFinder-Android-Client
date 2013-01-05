@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
@@ -15,13 +14,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
 	private LocationHelper loc;
 	private Button btnFindFood;
-	private Button btnAddRestaurant;
+	// private Button btnAddRestaurant;
 	private ProgressBar progressBar;
 	private TextView msgView;
 
@@ -31,7 +29,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.main);
 
 		btnFindFood = (Button) findViewById(R.id.btnFindFood);
-		btnAddRestaurant = (Button) findViewById(R.id.btnAddRestaurant);
+		// btnAddRestaurant = (Button) findViewById(R.id.btnAddRestaurant);
 		progressBar = (ProgressBar) findViewById(R.id.progressBar);
 		msgView = (TextView) findViewById(R.id.msgView);
 		loc = new LocationHelper(this);
@@ -51,8 +49,7 @@ public class MainActivity extends Activity {
 	 * @author Scott Helme
 	 */
 	class LocationTask extends AsyncTask<Boolean, Integer, Boolean> {
-		
-		
+
 		// Vor dem Ausführen des Tasks LocationProvider ermitteln
 		@Override
 		protected void onPreExecute() {
@@ -64,7 +61,7 @@ public class MainActivity extends Activity {
 				showDialog(getString(R.string.err_no_loc_provider));
 			}
 		}
-		
+
 		@Override
 		protected Boolean doInBackground(Boolean... params) {
 
@@ -95,8 +92,6 @@ public class MainActivity extends Activity {
 						R.string.msgViewUpdated, loc.getStrLocation()));
 			}
 		}
-
-		
 
 		protected void showDialog(String msg) {
 			new AlertDialog.Builder(MainActivity.this).setMessage(msg)

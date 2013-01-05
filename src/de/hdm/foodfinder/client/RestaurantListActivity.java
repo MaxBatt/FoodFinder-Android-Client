@@ -1,8 +1,6 @@
 package de.hdm.foodfinder.client;
 
-
 import java.util.ArrayList;
-
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -19,8 +17,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
-
 
 public class RestaurantListActivity extends ListActivity implements
 		OnItemClickListener {
@@ -53,14 +49,12 @@ public class RestaurantListActivity extends ListActivity implements
 			restaurants.add(restaurant);
 			// System.out.println(restaurant.getAddress());
 		}
-		
+
 		adapter = new RestaurantArrayAdapter(this, restaurants);
 		setListAdapter(adapter);
 
 		ListView shot = getListView();
 		shot.setOnItemClickListener(this);
-		
-
 
 	}
 
