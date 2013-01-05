@@ -16,6 +16,8 @@ public final class R {
     public static final class drawable {
         public static final int ic_action_search=0x7f020000;
         public static final int ic_launcher=0x7f020001;
+        public static final int pin_blue=0x7f020002;
+        public static final int pin_yellow=0x7f020003;
     }
     public static final class id {
         public static final int addressLabel=0x7f08001c;
@@ -102,6 +104,7 @@ public final class R {
         public static final int seek_text_updated=0x7f040016;
         public static final int spinner_label=0x7f040017;
         public static final int title_activity_main=0x7f040003;
+        public static final int your_location=0x7f040022;
     }
     public static final class style {
         public static final int AppTheme=0x7f060000;

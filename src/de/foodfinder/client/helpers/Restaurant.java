@@ -1,5 +1,7 @@
 package de.foodfinder.client.helpers;
 
+import com.google.gson.Gson;
+
 
 public class Restaurant {
 	private String id;
@@ -100,5 +102,9 @@ public class Restaurant {
 	    return sb.toString();
 	}
 	
-
+	public String getJson(){
+		Gson gson = new Gson();
+		String json = gson.toJson(this);
+		return json;
+	}
 }

@@ -14,16 +14,23 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
+import com.google.gson.Gson;
+
+import de.foodfinder.client.helpers.Restaurant;
 
 public class MyMapActivity extends MapActivity {
 
-	String APIKEY = "0N-56Pydas2rL05rrn84t0Mguor0G0i86V2SACA";
-	MapView map;
+	private MapView map;
 
-	int actLatitude;
-	int actLongitude;
-	int resLatitude;
-	int resLongitude;
+	private Restaurant restaurant;
+	
+	private int actLatitude;
+	private int actLongitude;
+	private int resLatitude;
+	private int resLongitude;
+	
+	GeoPoint actPosition;
+	GeoPoint restaurantPosition;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,11 @@ public class MyMapActivity extends MapActivity {
 		setContentView(R.layout.map_activity);
 
 		Bundle extras = getIntent().getExtras();
+		
+		Gson gson = new Gson();
+		String jsonRestaurant = extras.getString("restaurant");
+		restaurant = gson.fromJson(jsonRestaurant, Restaurant.class);
+		
 		actLatitude = (int) (Double
 				.parseDouble(extras.getString("actLatitude")) * 1e6);
 		actLongitude = (int) (Double.parseDouble(extras
@@ -47,25 +59,41 @@ public class MyMapActivity extends MapActivity {
 		map.setSatellite(true);
 		setContentView(map);
 
-		// Center map to new position.
-		GeoPoint restaurantPosition = new GeoPoint(resLatitude, resLongitude);
+		actPosition = new GeoPoint(actLatitude, actLongitude);
+		restaurantPosition = new GeoPoint(resLatitude, resLongitude);
+		// Center map to Restaurants position.
 		Log.e(MyMapActivity.class.getCanonicalName(),
 				"Setting center of map to: " + restaurantPosition);
 		MapController controller = map.getController();
-		controller.setCenter(restaurantPosition);
+		controller.setCenter(actPosition);
 		controller.setZoom(15);
+		
+		/*
+		 * Overlays erzeugen für eigene Position und Restaurant-Position	
+		 */
+		//Array mit aktueller Position
+		ArrayList<GeoPoint> actLocation = new ArrayList<GeoPoint>();
+		actLocation.add(actPosition);
+		//Array mit Restaurantposition	
+		ArrayList<GeoPoint> restaurantLocation = new ArrayList<GeoPoint>();
+		restaurantLocation.add(restaurantPosition);
 
-		GeoPoint actPosition = new GeoPoint(actLatitude, actLongitude);
+		// Overlay für aktuelle Position erzeugen und auf Karte platzieren.
+		GeoPointsOverlay actPositionOverlay = new GeoPointsOverlay(getResources()
+				.getDrawable(R.drawable.pin_blue));
+		actPositionOverlay.setItems(actLocation);
+		map.getOverlays().add(actPositionOverlay);
+		
+		// Overlay für Restaurant-Position erzeugen und auf Karte platzieren.
+		GeoPointsOverlay restaurantPositionOverlay = new GeoPointsOverlay(getResources()
+				.getDrawable(R.drawable.pin_yellow));
+		restaurantPositionOverlay.setItems(restaurantLocation);
+		map.getOverlays().add(restaurantPositionOverlay);
+		
+		
+		
 
-		ArrayList<GeoPoint> locations = new ArrayList<GeoPoint>();
-		locations.add(restaurantPosition);
-		locations.add(actPosition);
-
-		// Overlay-Objekte erzeugen und Karte hinzuf¸gen.
-		GeoPointsOverlay gpOverlay = new GeoPointsOverlay(getResources()
-				.getDrawable(R.drawable.ic_launcher));
-		gpOverlay.setItems(locations);
-		map.getOverlays().add(gpOverlay);
+		
 	}
 
 	@Override
@@ -103,8 +131,15 @@ public class MyMapActivity extends MapActivity {
 
 		@Override
 		protected boolean onTap(int i) {
-			Toast.makeText(getApplicationContext(), "Nr. " + i + " getippt.",
-					Toast.LENGTH_SHORT).show();
+			if(items.get(i) == restaurantPosition){
+				String text = restaurant.getName() + "\n" + restaurant.getAddress();
+				Toast.makeText(getApplicationContext(), text,
+						Toast.LENGTH_SHORT).show();
+			}
+			else{
+				Toast.makeText(getApplicationContext(), getString(R.string.your_location),
+						Toast.LENGTH_SHORT).show();
+			}
 			return true;
 		}
 	}

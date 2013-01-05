@@ -137,6 +137,8 @@ public class RestaurantActivity extends Activity {
 		myIntent.putExtra("actLongitude", actLongitude);
 		myIntent.putExtra("resLatitude", restaurant.getLatitude());
 		myIntent.putExtra("resLongitude", restaurant.getLongitude());
+		myIntent.putExtra("restaurant", restaurant.getJson());
+		
 		startActivity(myIntent);
 	}
 

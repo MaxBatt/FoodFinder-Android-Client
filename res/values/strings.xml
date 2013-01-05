@@ -1,13 +1,13 @@
 <resources>
 
     <string name="app_name">FoodFinder</string>
-    <string name="msg_view_init">Ihr Standort wird abgerufen</string>
+    <string name="msg_view_init">Dein Standort wird abgerufen</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">FoodFinder</string>
     <string name="btn_find_food">Find Food!</string>
     <string name="btn_add_restaurant">Restaurant eintragen</string>
-    <string name="err_no_loc_provider">Die Standorterfassung für Ihr Mobilgerät ist deaktiviert. Um die App in vollem Umfang nutzen zu können, aktivieren Sie bitte die Standorterfassung in den Einstellungen.</string>
-    <string name="err_no_loc">Ihr aktueller Standort konnte nicht erfasst werden. Bitte überprüfen Sie die Einstellung für die Standorterfassung und starten Sie die App neu.</string>
+    <string name="err_no_loc_provider">Die Standorterfassung für Dein Mobilgerät ist deaktiviert. Um die App in vollem Umfang nutzen zu können, aktiviere bitte die Standorterfassung in den Einstellungen.</string>
+    <string name="err_no_loc">Dein aktueller Standort konnte nicht erfasst werden. Bitte überprüfe die Einstellung für die Standorterfassung und starte die App neu.</string>
     <string name="btn_settings">Einstellungen</string>
     <string name="btn_close">Schliessen</string>
     <string name="msgViewUpdated">Sie sind hier:\n %1$s</string>
@@ -34,6 +34,8 @@
     <string name="searching_restaurants">Restaurants werden gesucht</string>
     <string name="loading_restaurant">Restaurant wird geladen</string>
     <string name="btn_map">Karte anzeigen</string>
+    <string name="your_location">Dein Standort</string>
+    
 
     <string-array name="regions_array">
         <item></item>
