@@ -61,8 +61,8 @@ public class FindFoodActivity extends Activity {
 
 		Bundle extras = getIntent().getExtras();
 
-		latitude = extras.getString("latitude");
-		longitude = extras.getString("longitude");
+		latitude = extras.getString("actLatitude");
+		longitude = extras.getString("actLongitude");
 
 		etDishes = (EditText) findViewById(R.id.etDishes);
 		cb1 = (CheckBox) findViewById(R.id.cb1);
@@ -73,6 +73,7 @@ public class FindFoodActivity extends Activity {
 		cb6 = (CheckBox) findViewById(R.id.cb6);
 		cb7 = (CheckBox) findViewById(R.id.cb7);
 		distanceSeeker = (SeekBar) findViewById(R.id.distanceSeeker);
+		distanceSeeker.setProgress(5);
 		seekText = (TextView) findViewById(R.id.seekText);
 		regionSpinner = (Spinner) findViewById(R.id.regionSpinner);
 		btnSearch = (Button) findViewById(R.id.btnSearch);
@@ -225,10 +226,11 @@ public class FindFoodActivity extends Activity {
 		protected void onPostExecute(String result) {
 			
 			waitingDialog.dismiss();
-			
 			Intent myIntent = new Intent(FindFoodActivity.this,
 					RestaurantListActivity.class);
 			myIntent.putExtra("json", result);
+			myIntent.putExtra("actLatitude", latitude);
+			myIntent.putExtra("actLongitude", longitude);
 			startActivity(myIntent);
 
 		}

@@ -4,111 +4,126 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="5dp" >
 
-    <TextView
-        android:id="@+id/restaurantName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Name"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+    <ScrollView
+android:id="@+navigate/Scrollview"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"> 
 
-    <TextView
-        android:id="@+id/restaurantRegions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/restaurantName"
-        android:text="regions" 
-        android:layout_marginLeft="3dp"/>
+        <RelativeLayout
+            android:id="@+navigate/navLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
 
-    <TextView
-        android:id="@+id/categoriesLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/restaurantRegions"
-        android:text="@string/categories_label"
-        android:textStyle="bold" 
-        android:layout_marginTop="15dp"/>
+            <TextView
+                android:id="@+id/restaurantName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Name"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/restaurantCategories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/restaurantRegions"
-        android:layout_marginLeft="3dp"
-        android:layout_toRightOf="@id/categoriesLabel"
-        android:text="Cat" 
-        android:layout_marginTop="15dp"/>
+            <TextView
+                android:id="@+id/restaurantRegions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/restaurantName"
+                android:layout_marginLeft="3dp"
+                android:text="regions" />
 
-    <TextView
-        android:id="@+id/dishesLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/categoriesLabel"
-        android:layout_marginTop="15dp"
-        android:text="@string/dishes_label"
-        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/categoriesLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/restaurantRegions"
+                android:layout_marginTop="15dp"
+                android:text="@string/categories_label"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/restaurantDishes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dishesLabel"
-        android:text="Dishes"
-        android:layout_marginLeft="3dp" />
+            <TextView
+                android:id="@+id/restaurantCategories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/restaurantRegions"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@id/categoriesLabel"
+                android:text="Cat" />
 
-    <TextView
-        android:id="@+id/distanceLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/restaurantDishes"
-        android:text="@string/distance_label2"
-        android:textStyle="bold" 
-        android:layout_marginTop="15dp"/>
+            <TextView
+                android:id="@+id/dishesLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/categoriesLabel"
+                android:layout_marginTop="15dp"
+                android:text="@string/dishes_label"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/restaurantDistance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/restaurantDishes"
-        android:layout_marginLeft="3dp"
-        android:layout_toRightOf="@id/distanceLabel"
-        android:text="Dist" 
-        android:layout_marginTop="15dp"/>
+            <TextView
+                android:id="@+id/restaurantDishes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dishesLabel"
+                android:layout_marginLeft="3dp"
+                android:text="Dishes" />
 
-    <TextView
-        android:id="@+id/addressLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/distanceLabel"
-        android:layout_marginTop="15dp"
-        android:text="@string/address_label"
-        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/distanceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/restaurantDishes"
+                android:layout_marginTop="15dp"
+                android:text="@string/distance_label2"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/restaurantAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/addressLabel"
-        android:layout_marginLeft="3dp"
-        android:text="Address" />
-    
-    <ImageView
-        android:id="@+id/photoView"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/restaurantAddress"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/ic_launcher"
-        android:layout_centerHorizontal="true" />
+            <TextView
+                android:id="@+id/restaurantDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/restaurantDishes"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@id/distanceLabel"
+                android:text="Dist" />
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/btn_map" 
-        android:onClick="showMap"/>
+            <TextView
+                android:id="@+id/addressLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/distanceLabel"
+                android:layout_marginTop="15dp"
+                android:text="@string/address_label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/restaurantAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addressLabel"
+                android:layout_marginLeft="3dp"
+                android:text="Address" />
+
+            <ImageView
+                android:id="@+id/photoView"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/restaurantAddress"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_launcher" />
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/photoView"
+                android:layout_below="@id/photoView"
+                android:layout_centerHorizontal="true"
+                android:onClick="showMap"
+                android:text="@string/btn_map" 
+                 android:layout_marginTop="5dp"/>
+
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

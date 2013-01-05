@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 public class RestaurantListActivity extends ListActivity implements
@@ -27,6 +28,8 @@ public class RestaurantListActivity extends ListActivity implements
 	ArrayList<Restaurant> restaurants;
 	RestaurantArrayAdapter adapter;
 	Gson gson;
+	String actLatitude;
+	String actLongitude;
 
 	String jsonRestaurant;
 
@@ -34,6 +37,8 @@ public class RestaurantListActivity extends ListActivity implements
 		super.onCreate(icicle);
 		Bundle extras = getIntent().getExtras();
 		String json = extras.getString("json");
+		actLatitude = extras.getString("actLatitude");
+		actLongitude = extras.getString("actLongitude");
 
 		gson = new Gson();
 		JsonParser parser = new JsonParser();
@@ -48,12 +53,14 @@ public class RestaurantListActivity extends ListActivity implements
 			restaurants.add(restaurant);
 			// System.out.println(restaurant.getAddress());
 		}
-
+		
 		adapter = new RestaurantArrayAdapter(this, restaurants);
 		setListAdapter(adapter);
 
 		ListView shot = getListView();
 		shot.setOnItemClickListener(this);
+		
+
 
 	}
 
@@ -65,6 +72,8 @@ public class RestaurantListActivity extends ListActivity implements
 		Intent myIntent = new Intent(RestaurantListActivity.this,
 				RestaurantActivity.class);
 		myIntent.putExtra("restaurant", jsonRestaurant);
+		myIntent.putExtra("actLatitude", actLatitude);
+		myIntent.putExtra("actLongitude", actLongitude);
 		startActivity(myIntent);
 	}
 

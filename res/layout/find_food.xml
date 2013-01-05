@@ -120,7 +120,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp" 
         android:layout_gravity="center_horizontal"
-        android:max="30"
+        android:max="350"
         android:progress="5"/>
 
     <TextView

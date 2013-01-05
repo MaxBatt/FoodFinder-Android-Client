@@ -47,6 +47,8 @@ public class RestaurantActivity extends Activity {
 	private String serverURL = "http://pfronhaus.dlinkddns.com:4567";
 	private Restaurant restaurant;
 	private Gson gson;
+	String actLatitude;
+	String actLongitude;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,16 +57,13 @@ public class RestaurantActivity extends Activity {
 		setContentView(R.layout.restaurant);
 
 		Bundle extras = getIntent().getExtras();
-
+		actLatitude = extras.getString("actLatitude");
+		actLongitude = extras.getString("actLongitude");
+		
 		gson = new Gson();
 
 		String jsonRestaurant = extras.getString("restaurant");
 		restaurant = gson.fromJson(jsonRestaurant, Restaurant.class);
-
-		String url = serverURL + "/restaurant/" + restaurant.getId() + "/infos";
-
-		getRestaurantInfos task = new getRestaurantInfos();
-		task.execute(new String[] { url });
 
 		tvName = (TextView) findViewById(R.id.restaurantName);
 		tvAddress = (TextView) findViewById(R.id.restaurantAddress);
@@ -73,13 +72,27 @@ public class RestaurantActivity extends Activity {
 		tvDishes = (TextView) findViewById(R.id.restaurantDishes);
 		tvDistance = (TextView) findViewById(R.id.restaurantDistance);
 		photoView = (ImageView) findViewById(R.id.photoView);
-
 		photoView.setOnClickListener(imageListener);
+		
+		tvName.setText(restaurant.getName());
+		tvAddress.setText(restaurant.getAddress());
+		tvRegions.setText(restaurant.getRegions());
+		tvCategories.setText(restaurant.getCategories());
+		tvDishes.setText(restaurant.getDishes());
+		tvDistance.setText(restaurant.getDistance());
 
+		if(restaurant.getPhotos().length() > 0){
+			getPhoto task = new getPhoto();
+			task.execute(restaurant.getPhotos() );
+			System.out.println("nich leer");
+		}
+		else{
+			photoView.setImageBitmap(null);
+		}
+		
 	}
 
-	private class getRestaurantInfos extends
-			AsyncTask<String, Void, DoubleValue> {
+	private class getPhoto extends AsyncTask<String, Void, Bitmap> {
 
 		ProgressDialog waitingDialog = new ProgressDialog(
 				RestaurantActivity.this);
@@ -91,32 +104,9 @@ public class RestaurantActivity extends Activity {
 		}
 
 		@Override
-		protected DoubleValue doInBackground(String... urls) {
+		protected Bitmap doInBackground(String... urls) {
 
-			String response = "";
-			for (String url : urls) {
-				DefaultHttpClient client = new DefaultHttpClient();
-				try {
-					HttpGet httpGet = new HttpGet(url);
-					HttpResponse execute = client.execute(httpGet);
-					InputStream content = execute.getEntity().getContent();
-
-					BufferedReader buffer = new BufferedReader(
-							new InputStreamReader(content));
-					String s = "";
-					while ((s = buffer.readLine()) != null) {
-						response += s;
-					}
-
-				} catch (Exception e) {
-					e.printStackTrace();
-					this.cancel(true);
-				}
-			}
-
-			RestaurantInfos restaurantInfos = gson.fromJson(response,
-					RestaurantInfos.class);
-			String imgURL = restaurantInfos.getPhotos();
+			String imgURL = urls[0];
 
 			Bitmap bitmap = null;
 
@@ -131,41 +121,16 @@ public class RestaurantActivity extends Activity {
 				}
 
 			}
-
-			DoubleValue result = new DoubleValue();
-			result.setRestaurantInfos(response);
-			result.setBitmap(bitmap);
-			return result;
+			return bitmap;
 
 		}
 
 		@Override
-		protected void onPostExecute(DoubleValue result) {
-			RestaurantInfos restaurantInfos = gson.fromJson(
-					result.getRestaurantInfos(), RestaurantInfos.class);
-			Bitmap bitmap = result.getBitmap();
-			// Toast.makeText(getApplicationContext(), dishes,
-			// Toast.LENGTH_SHORT).show();
-
+		protected void onPostExecute(Bitmap bitmap) {
 			photoView.setImageBitmap(bitmap);
-			tvName.setText(restaurant.getName());
-			tvAddress.setText(restaurant.getAddress());
-			tvRegions.setText(restaurantInfos.getRegions());
-			tvCategories.setText(restaurantInfos.getCategories());
-			tvDishes.setText(restaurantInfos.getDishes());
-			tvDistance.setText(restaurant.getDistance());
-
 			waitingDialog.dismiss();
 		}
 
-		@Override
-		protected void onCancelled() {
-			waitingDialog.dismiss();
-
-			Toast toast = Toast.makeText(RestaurantActivity.this,
-					getString(R.string.err_no_connection), Toast.LENGTH_SHORT);
-			toast.show();
-		}
 	}
 
 	// ClickListener für Bild
@@ -185,10 +150,11 @@ public class RestaurantActivity extends Activity {
 
 	// ClickListener für Map Button
 	public void showMap(View view) {
-		Intent myIntent = new Intent(this,
-				MyMapActivity.class);
-		myIntent.putExtra("latitude", restaurant.getLatitude());
-		myIntent.putExtra("latitude", restaurant.getLongitude());
+		Intent myIntent = new Intent(this, MyMapActivity.class);
+		myIntent.putExtra("actLatitude", actLatitude);
+		myIntent.putExtra("actLongitude", actLongitude);
+		myIntent.putExtra("resLatitude", restaurant.getLatitude());
+		myIntent.putExtra("resLongitude", restaurant.getLongitude());
 		startActivity(myIntent);
 	}
 
