@@ -23,7 +23,11 @@ public class RestaurantInfos {
 	}
 	
 	public String getPhotos() {
-		return photos[0];
+		if(photos.length > 0){
+			return photos[0];
+		}
+		else return "";
+		
 	}
 	
 	public String getAvgRating() {

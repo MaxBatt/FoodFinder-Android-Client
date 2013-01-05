@@ -27,13 +27,13 @@
     <string name="btn_search">Suchen</string>
     <string name="dishes_toast">Mehrere Gerichte durch Kommata trennen</string>
     <string name="err_no_connection">Fehler beim Verbinden zum Server</string>
-    
     <string name="categories_label">Kategorien: </string>
     <string name="dishes_label">Gerichte</string>
     <string name="distance_label2">Entfernung: </string>
     <string name="address_label">Adresse</string>
     <string name="searching_restaurants">Restaurants werden gesucht</string>
     <string name="loading_restaurant">Restaurant wird geladen</string>
+    <string name="btn_map">Karte anzeigen</string>
 
     <string-array name="regions_array">
         <item></item>
@@ -45,7 +45,7 @@
         <item>Chinesisch</item>
         <item>Vietnamesisch</item>
         <item>Griechisch</item>
-        <item ></item>
+        <item></item>
         <item>Afrikanisch</item>
         <item>Australisch</item>
         <item>Französisch</item>
@@ -61,9 +61,7 @@
         <item>Ungarisch</item>
         <item>Karibisch</item>
         <item>Osteuropäisch</item>
-        <item>Russisch</item>     
+        <item>Russisch</item>
     </string-array>
-    
-    
 
 </resources>

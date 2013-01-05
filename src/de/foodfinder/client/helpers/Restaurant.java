@@ -46,4 +46,12 @@ public class Restaurant {
 		return street + " " + streetNumber + "\n" + postcode + " " + city;
 	}
 
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
 }
