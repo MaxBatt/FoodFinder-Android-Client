@@ -1,4 +1,4 @@
-package de.hdm.foodfinder.client;
+package de.hdm.foodfinder.client.activities;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -11,6 +11,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.google.gson.Gson;
+
+import de.hdm.foodfinder.client.R;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

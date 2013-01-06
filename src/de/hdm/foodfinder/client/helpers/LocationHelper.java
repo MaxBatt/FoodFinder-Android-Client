@@ -1,7 +1,9 @@
-package de.hdm.foodfinder.client;
+package de.hdm.foodfinder.client.helpers;
 
 import java.io.IOException;
 import java.util.List;
+
+import de.hdm.foodfinder.client.activities.MainActivity;
 
 import android.content.Context;
 import android.location.Address;

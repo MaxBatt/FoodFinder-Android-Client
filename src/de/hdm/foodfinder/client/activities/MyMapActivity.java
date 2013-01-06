@@ -1,4 +1,4 @@
-package de.hdm.foodfinder.client;
+package de.hdm.foodfinder.client.activities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,7 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 import com.google.gson.Gson;
 
+import de.hdm.foodfinder.client.R;
 import de.hdm.foodfinder.client.helpers.Restaurant;
 
 public class MyMapActivity extends MapActivity {

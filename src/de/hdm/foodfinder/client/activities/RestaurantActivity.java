@@ -1,8 +1,9 @@
-package de.hdm.foodfinder.client;
+package de.hdm.foodfinder.client.activities;
 
 import java.io.InputStream;
 import com.google.gson.Gson;
 
+import de.hdm.foodfinder.client.R;
 import de.hdm.foodfinder.client.helpers.Restaurant;
 
 import android.app.Activity;

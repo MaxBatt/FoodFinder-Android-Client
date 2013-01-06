@@ -1,4 +1,4 @@
-package de.hdm.foodfinder.client;
+package de.hdm.foodfinder.client.activities;
 
 import java.util.ArrayList;
 

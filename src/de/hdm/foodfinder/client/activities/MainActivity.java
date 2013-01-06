@@ -1,5 +1,6 @@
-package de.hdm.foodfinder.client;
+package de.hdm.foodfinder.client.activities;
 
+import de.hdm.foodfinder.client.R;
 import de.hdm.foodfinder.client.helpers.LocationHelper;
 import android.location.LocationManager;
 import android.os.AsyncTask;
