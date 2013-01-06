@@ -21,7 +21,7 @@
     <string name="cb6">Gesund</string>
     <string name="cb7">Vegetarisch</string>
     <string name="distance_label">Umkreis</string>
-    <string name="seek_text_init">10km</string>
+    <string name="seek_text_init">5km</string>
     <string name="seek_text_updated">%1$i km</string>
     <string name="spinner_label">Nationalität/Region</string>
     <string name="btn_search">Suchen</string>
