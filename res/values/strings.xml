@@ -10,7 +10,7 @@
     <string name="err_no_loc">Dein aktueller Standort konnte nicht erfasst werden. Bitte überprüfe die Einstellung für die Standorterfassung und starte die App neu.</string>
     <string name="btn_settings">Einstellungen</string>
     <string name="btn_close">Schliessen</string>
-    <string name="msgViewUpdated">Sie sind hier:\n %1$s</string>
+    <string name="msgViewUpdated">Du bist hier:\n %1$s</string>
     <string name="et_dishes">Trage beliebige Gerichte ein</string>
     <string name="cat_label">Kategorien</string>
     <string name="cb1">Fleisch</string>
@@ -20,7 +20,7 @@
     <string name="cb5">Pizza</string>
     <string name="cb6">Gesund</string>
     <string name="cb7">Vegetarisch</string>
-    <string name="distance_label">Umkreis</string>
+    <string name="distance_label">Max. Distanz</string>
     <string name="seek_text_init">5km</string>
     <string name="seek_text_updated">%1$i km</string>
     <string name="spinner_label">Nationalität/Region</string>

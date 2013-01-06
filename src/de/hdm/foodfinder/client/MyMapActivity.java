@@ -67,7 +67,7 @@ public class MyMapActivity extends MapActivity {
 		// Kartenattribute
 		map.setClickable(true);
 		map.setBuiltInZoomControls(true);
-		map.setSatellite(true);
+		map.setSatellite(false);
 
 		// Karte setzen
 		setContentView(map);
@@ -75,9 +75,9 @@ public class MyMapActivity extends MapActivity {
 		// Geopoints erstellen
 		actPosition = new GeoPoint(actLatitude, actLongitude);
 		restaurantPosition = new GeoPoint(resLatitude, resLongitude);
-		// AktuellePosition zentrieren
+		// Restaurantposition zentrieren
 		MapController controller = map.getController();
-		controller.setCenter(actPosition);
+		controller.setCenter(restaurantPosition);
 		// Zoomfaktor
 		controller.setZoom(15);
 
