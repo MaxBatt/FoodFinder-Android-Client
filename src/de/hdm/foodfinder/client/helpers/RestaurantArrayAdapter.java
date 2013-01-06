@@ -12,6 +12,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+/**
+ * RestaurantArrayAdapter
+ * 
+ * Adapter für RestaurantListe Füllt ListRows mit Objektdaten
+ * 
+ * @author Max Batt
+ * 
+ */
 public class RestaurantArrayAdapter extends ArrayAdapter<Restaurant> {
 	private final Context context;
 	private final ArrayList<Restaurant> restaurants;
@@ -21,6 +29,7 @@ public class RestaurantArrayAdapter extends ArrayAdapter<Restaurant> {
 	private TextView distance;
 	private TextView regions;
 
+	// Adapter aus ArrayList basteln
 	public RestaurantArrayAdapter(Context context,
 			ArrayList<Restaurant> restaurants) {
 		super(context, R.layout.restaurant_row, restaurants);
@@ -30,6 +39,8 @@ public class RestaurantArrayAdapter extends ArrayAdapter<Restaurant> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+
+		// ListRow befüllen
 
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -1,4 +1,4 @@
-package de.hdm.foodfinder.client.activities;
+package de.hdm.foodfinder.client;
 
 import java.io.InputStream;
 import com.google.gson.Gson;
@@ -18,8 +18,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+/**
+ * RestaurantActivity Zeigt alle Informationen zum gewählten Restaurant an
+ * 
+ * @author Max Batt
+ * 
+ */
 public class RestaurantActivity extends Activity {
 
 	private TextView tvName;
@@ -41,15 +46,17 @@ public class RestaurantActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.restaurant);
 
+		// Extras
 		Bundle extras = getIntent().getExtras();
 		actLatitude = extras.getString("actLatitude");
 		actLongitude = extras.getString("actLongitude");
 
+		// JSON-Restaurant in JSON-Objekt umwandeln
 		gson = new Gson();
-
 		String jsonRestaurant = extras.getString("restaurant");
 		restaurant = gson.fromJson(jsonRestaurant, Restaurant.class);
 
+		// Views initialisieren
 		tvName = (TextView) findViewById(R.id.restaurantName);
 		tvAddress = (TextView) findViewById(R.id.restaurantAddress);
 		tvRegions = (TextView) findViewById(R.id.restaurantRegions);
@@ -59,6 +66,7 @@ public class RestaurantActivity extends Activity {
 		photoView = (ImageView) findViewById(R.id.photoView);
 		photoView.setOnClickListener(imageListener);
 
+		// Views mit Daten aus Restaurant-Objekt füttern
 		tvName.setText(restaurant.getName());
 		tvAddress.setText(restaurant.getAddress());
 		tvRegions.setText(restaurant.getRegions());
@@ -66,6 +74,7 @@ public class RestaurantActivity extends Activity {
 		tvDishes.setText(restaurant.getDishes());
 		tvDistance.setText(restaurant.getDistance());
 
+		// Wenn es ein Bild zum Restaurant gibt, dieses in AsyncTask runterladen
 		if (restaurant.getPhotos().length() > 0) {
 			getPhoto task = new getPhoto();
 			task.execute(restaurant.getPhotos());
@@ -76,17 +85,20 @@ public class RestaurantActivity extends Activity {
 
 	}
 
+	// AsyncTask zum runterladen des Bilds
 	private class getPhoto extends AsyncTask<String, Void, Bitmap> {
 
 		ProgressDialog waitingDialog = new ProgressDialog(
 				RestaurantActivity.this);
 
+		// Vor dem Ausführen: ProgressDialog einblenden
 		@Override
 		protected void onPreExecute() {
 			waitingDialog.setTitle(getString(R.string.loading_restaurant));
 			waitingDialog.show();
 		}
 
+		// Bild von gegebener URL runterladen
 		@Override
 		protected Bitmap doInBackground(String... urls) {
 
@@ -109,6 +121,7 @@ public class RestaurantActivity extends Activity {
 
 		}
 
+		// Nach dem AUsführen: ImageView mit Bild befüllen
 		@Override
 		protected void onPostExecute(Bitmap bitmap) {
 			photoView.setImageBitmap(bitmap);
@@ -125,14 +138,16 @@ public class RestaurantActivity extends Activity {
 			Bitmap bitmap = photoView.getDrawingCache();
 
 			if (bitmap != null) {
-				Toast.makeText(RestaurantActivity.this,
-						restaurant.getLatitude(), Toast.LENGTH_SHORT).show();
+				// Toast.makeText(RestaurantActivity.this,
+				// restaurant.getLatitude(), Toast.LENGTH_SHORT).show();
 
 			}
 		}
 	};
 
-	// ClickListener für Map Button
+	// Wird beim Klick auf Karte zeigen ausgeführt
+	// gibt die aktuellen Koordinaten, die Restaurantkoordinaten und
+	// JSON-Interpretation des aktuellen Restaurants an MyMapActivity weiter.
 	public void showMap(View view) {
 		Intent myIntent = new Intent(this, MyMapActivity.class);
 		myIntent.putExtra("actLatitude", actLatitude);
@@ -140,7 +155,7 @@ public class RestaurantActivity extends Activity {
 		myIntent.putExtra("resLatitude", restaurant.getLatitude());
 		myIntent.putExtra("resLongitude", restaurant.getLongitude());
 		myIntent.putExtra("restaurant", restaurant.getJson());
-		
+
 		startActivity(myIntent);
 	}
 

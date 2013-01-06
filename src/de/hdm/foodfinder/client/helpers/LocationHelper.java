@@ -3,7 +3,7 @@ package de.hdm.foodfinder.client.helpers;
 import java.io.IOException;
 import java.util.List;
 
-import de.hdm.foodfinder.client.activities.MainActivity;
+import de.hdm.foodfinder.client.MainActivity;
 
 import android.content.Context;
 import android.location.Address;
@@ -15,10 +15,13 @@ import android.os.Bundle;
 import android.util.Log;
 
 /***
- * Location Helper Class. Handles creation of the Location Manager and Location
- * Listener.
  * 
- * @author Scott Helme
+ * LocationHelper
+ * 
+ * Handles creation of the Location Manager and Location Listener.
+ * 
+ * @author Scott Helme http://pastebin.com/v8TM1p1T
+ * 
  */
 public class LocationHelper {
 

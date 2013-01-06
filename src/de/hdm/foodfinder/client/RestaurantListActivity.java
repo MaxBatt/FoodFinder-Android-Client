@@ -1,4 +1,4 @@
-package de.hdm.foodfinder.client.activities;
+package de.hdm.foodfinder.client;
 
 import java.util.ArrayList;
 
@@ -18,6 +18,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+/**
+ * RestaurtantListActivity
+ * 
+ * * Wandelt Json-Array in Liste von Restaurant-Objekten um und befüllt mit
+ * dieser den Listenadapter
+ * 
+ * @author Max Batt
+  */
 public class RestaurantListActivity extends ListActivity implements
 		OnItemClickListener {
 
@@ -31,16 +39,17 @@ public class RestaurantListActivity extends ListActivity implements
 
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
+
+		// Extras
 		Bundle extras = getIntent().getExtras();
 		String json = extras.getString("json");
 		actLatitude = extras.getString("actLatitude");
 		actLongitude = extras.getString("actLongitude");
 
+		// Json in ArrayList<Restaurants> umwandeln
 		gson = new Gson();
 		JsonParser parser = new JsonParser();
-
 		JsonArray Jarray;
-
 		Jarray = parser.parse(json).getAsJsonArray();
 		restaurants = new ArrayList<Restaurant>();
 
@@ -50,14 +59,20 @@ public class RestaurantListActivity extends ListActivity implements
 			// System.out.println(restaurant.getAddress());
 		}
 
+		// Adapter befüllen
 		adapter = new RestaurantArrayAdapter(this, restaurants);
 		setListAdapter(adapter);
 
-		ListView shot = getListView();
-		shot.setOnItemClickListener(this);
+		// ListView befüllen
+		ListView listView = getListView();
+		// OnItemClickListener setzen
+		listView.setOnItemClickListener(this);
 
 	}
 
+	// OnItemClickListener für ListView
+	// Gibt Restaurant als Json string und die aktuellen Koordinaten an
+	// RestaurantView weiter
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {

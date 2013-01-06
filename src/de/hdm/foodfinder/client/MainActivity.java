@@ -1,4 +1,4 @@
-package de.hdm.foodfinder.client.activities;
+package de.hdm.foodfinder.client;
 
 import de.hdm.foodfinder.client.R;
 import de.hdm.foodfinder.client.helpers.LocationHelper;
@@ -16,6 +16,14 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+/**
+ * MainActivity
+ * 
+ * Ermittelt die aktuelle Position und gibt sie an die FindFoodActivity weiter
+ * 
+ * @author Max Batt
+ * 
+ */
 public class MainActivity extends Activity {
 
 	private LocationHelper loc;
@@ -33,21 +41,20 @@ public class MainActivity extends Activity {
 		// btnAddRestaurant = (Button) findViewById(R.id.btnAddRestaurant);
 		progressBar = (ProgressBar) findViewById(R.id.progressBar);
 		msgView = (TextView) findViewById(R.id.msgView);
+
+		// LocationHleper erstellen.
 		loc = new LocationHelper(this);
 
 		// FindFood Button deaktivieren, solang die Location nicht bekannt ist
 		btnFindFood.setEnabled(false);
 
-		// create new async task for fetching location and execute it
+		// AsyncTask erstellen, um die aktuelle Position zu ermitteln
 		LocationTask locTask = new LocationTask();
 		locTask.execute(new Boolean[] { true });
 	}
 
-	/***
-	 * This task waits for the Location Services helper to acquire a location in
-	 * a worker thread so that we don't lock the UI thread whilst waiting.
-	 * 
-	 * @author Scott Helme
+	/*
+	 * AsyncTask für die Standortsermittlung
 	 */
 	class LocationTask extends AsyncTask<Boolean, Integer, Boolean> {
 
@@ -63,16 +70,17 @@ public class MainActivity extends Activity {
 			}
 		}
 
+		// Standort ermitteln
 		@Override
 		protected Boolean doInBackground(Boolean... params) {
 
-			// while the location helper has not got a lock
+			// Schleife läuft 30sek oder bis der Standort ermittelt ist
 			long before = System.currentTimeMillis();
 			while (loc.gotLocation() == false
 					&& System.currentTimeMillis() < before + 30000) {
 
 			}
-			// once done return true
+			// Wenn Standort gefunden oder 30sek vorbei
 			return true;
 
 		}
@@ -80,7 +88,7 @@ public class MainActivity extends Activity {
 		// Nach Ausführung des Tasks
 		@Override
 		protected void onPostExecute(Boolean result) {
-
+			// Meldung, falls Standort nicht ermittelt werden konnte
 			if (!loc.gotLocation()) {
 				showDialog(getString(R.string.err_no_loc));
 			} else {
@@ -125,6 +133,8 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	// Bei Klick auf FindFood Button FindFoodActivity aufrufen
+	// Intent-Extras: lat und long des aktuellen Standorts
 	public void findFood(View view) {
 		Intent myIntent = new Intent(this, FindFoodActivity.class);
 		myIntent.putExtra("actLatitude", loc.getLat());

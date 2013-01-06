@@ -1,4 +1,4 @@
-package de.hdm.foodfinder.client.activities;
+package de.hdm.foodfinder.client;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -30,8 +30,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * FindFoodActivity
+ * 
+ * Formular zum Suchen von Restaurants Beim Klick auf Suchen werden die
+ * Parameter ausgewertet und eine entsprechende URL generiert. Aus dem Ergebnis
+ * der Abfrage wird an die RestaurantListActivity weitergegeben
+ * 
+ * @author Max Batt
+ */
 public class FindFoodActivity extends Activity {
-
+	// URL zum DB-Server
 	private String serverUrl = "http://pfronhaus.dlinkddns.com:4567/restaurants?";
 
 	private String latitude;
@@ -57,11 +66,12 @@ public class FindFoodActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.find_food);
 
+		// Extras holen
 		Bundle extras = getIntent().getExtras();
-
 		latitude = extras.getString("actLatitude");
 		longitude = extras.getString("actLongitude");
 
+		// Formularfelder initisalisieren
 		etDishes = (EditText) findViewById(R.id.etDishes);
 		cb1 = (CheckBox) findViewById(R.id.cb1);
 		cb2 = (CheckBox) findViewById(R.id.cb2);
@@ -99,11 +109,12 @@ public class FindFoodActivity extends Activity {
 		allCheckBoxes.add(cb6);
 		allCheckBoxes.add(cb7);
 
-		// OnClickListener für Dishes EditText
+		// OnClickListener für Textfeld Gerichte
 		etDishes.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+				// Hint anzeigen
 				Toast toast = Toast.makeText(FindFoodActivity.this,
 						getString(R.string.dishes_toast), Toast.LENGTH_LONG);
 				toast.setGravity(Gravity.TOP, 0, 100);
@@ -112,6 +123,7 @@ public class FindFoodActivity extends Activity {
 		});
 
 		// OnChange Listener für Umkreis Seekbar
+		// Umkreis wird in km angezeigt
 		distanceSeeker
 				.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
@@ -129,13 +141,13 @@ public class FindFoodActivity extends Activity {
 					public void onProgressChanged(SeekBar seekBar,
 							int progress, boolean fromUser) {
 						// TODO Auto-generated method stub
-
 						seekText.setText(String.valueOf(progress) + "km");
 					}
 				});
 
 	}
 
+	// Wird beim Klick auf Suchen ausgeführt
 	public void searchRestaurants(View view) {
 		// Params, die an die URL gehängt werden
 		String params = "";
@@ -175,25 +187,27 @@ public class FindFoodActivity extends Activity {
 		// SeekBar Progress auslesen und an params anhägen
 		params += "&distance=" + String.valueOf(distanceSeeker.getProgress());
 
-		/*
-		 * Toast toast = Toast.makeText(FindFoodActivity.this, params,
-		 * Toast.LENGTH_SHORT); toast.setGravity(Gravity.TOP, 0, 100);
-		 * toast.show();
-		 */
+		// Serveranfrage in AsnycTask ausführen
 		SearchTask task = new SearchTask();
 		task.execute(new String[] { serverUrl + params });
 	}
 
+	/*
+	 * AnsycTask für Suchanfrage an den Server Kriegt Restaurantliste als JSON
+	 * vom Server und gibt sie an die RestaurantListActivity weiter
+	 */
 	private class SearchTask extends AsyncTask<String, Void, String> {
 
 		ProgressDialog waitingDialog = new ProgressDialog(FindFoodActivity.this);
 
+		// Vor dem Ausführen Progressdialog anzeigen
 		@Override
 		protected void onPreExecute() {
 			waitingDialog.setTitle(getString(R.string.searching_restaurants));
 			waitingDialog.show();
 		}
 
+		// Im hintergrund Json-String vom Server abrufen
 		@Override
 		protected String doInBackground(String... urls) {
 			String response = "";
@@ -219,6 +233,8 @@ public class FindFoodActivity extends Activity {
 			return response;
 		}
 
+		// RestaurantListe, und aktuelle Koordinaten an RestaurantListActivity
+		// weitergeben
 		@Override
 		protected void onPostExecute(String result) {
 
@@ -237,6 +253,7 @@ public class FindFoodActivity extends Activity {
 			Toast toast = Toast.makeText(FindFoodActivity.this,
 					getString(R.string.err_no_connection), Toast.LENGTH_SHORT);
 			toast.show();
+			waitingDialog.dismiss();
 		}
 	}
 
