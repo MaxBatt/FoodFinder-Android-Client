@@ -116,8 +116,8 @@ public class FindFoodActivity extends Activity {
 			public void onClick(View v) {
 				// Hint anzeigen
 				Toast toast = Toast.makeText(FindFoodActivity.this,
-						getString(R.string.dishes_toast), Toast.LENGTH_LONG);
-				toast.setGravity(Gravity.TOP, 0, 100);
+						getString(R.string.dishes_toast), Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.TOP, 0, 250);
 				toast.show();
 			}
 		});
