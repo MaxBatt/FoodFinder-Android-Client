@@ -199,7 +199,7 @@ public class FindFoodActivity extends Activity {
 
 		// Serveranfrage in AsnycTask ausführen
 		SearchTask task = new SearchTask();
-		task.execute(new String[] { serverUrl + params });
+		task.execute(new String[] { serverUrl + "/restaurants?" + params });
 	}
 
 	/**
