@@ -148,6 +148,8 @@ public class FindFoodActivity extends Activity {
 				});
 
 	}
+	
+	
 
 	/**
 	 * searchRestaurants

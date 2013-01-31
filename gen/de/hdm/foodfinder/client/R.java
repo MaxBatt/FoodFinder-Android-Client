@@ -37,7 +37,7 @@ public final class R {
         public static final int cb7=0x7f08000a;
         public static final int dishesLabel=0x7f080018;
         public static final int distanceLabel=0x7f08001a;
-        public static final int distanceSeeker=0x7f08000c;
+        public static final int distanceSeeker=0x7f08000d;
         public static final int etDishes=0x7f080000;
         public static final int mapview=0x7f080013;
         public static final int menu_settings=0x7f080020;
@@ -52,7 +52,7 @@ public final class R {
         public static final int restaurantName=0x7f080014;
         public static final int restaurantRegions=0x7f080015;
         public static final int seekLabel=0x7f08000b;
-        public static final int seekText=0x7f08000d;
+        public static final int seekText=0x7f08000c;
         public static final int spinnerLabel=0x7f080001;
     }
     public static final class layout {

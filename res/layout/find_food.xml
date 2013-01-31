@@ -2,26 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical" >
 
     <EditText
         android:id="@+id/etDishes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10" 
+        android:layout_marginTop="35dp"
+        android:ems="10"
         android:hint="@string/et_dishes"
-        android:singleLine="true"/>
-    
+        android:singleLine="true" />
+
     <TextView
         android:id="@+id/spinnerLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/spinner_label" 
         android:layout_marginLeft="12dp"
-        android:textStyle="bold"/>
-    
+        android:layout_marginTop="35dp"
+        android:text="@string/spinner_label"
+        android:textStyle="bold" />
+
     <Spinner
         android:id="@+id/regionSpinner"
         android:layout_width="match_parent"
@@ -32,22 +34,23 @@
         android:id="@+id/catLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/cat_label" 
         android:layout_marginLeft="12dp"
-        android:textStyle="bold"/>
+        android:layout_marginTop="35dp"
+        android:text="@string/cat_label"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="5dp" >
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="8dp" >
 
         <CheckBox
             android:id="@+id/cb1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cb1" />
+            android:text="@string/cb1" 
+            android:layout_marginLeft="5dp"/>
 
         <CheckBox
             android:id="@+id/cb2"
@@ -67,15 +70,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:layout_marginLeft="5dp" >
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="7dp" >
 
         <CheckBox
             android:id="@+id/cb4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cb4" 
-            />
+            android:layout_marginLeft="5dp"/>
 
         <CheckBox
             android:id="@+id/cb5"
@@ -88,14 +91,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp" 
-        android:layout_marginLeft="5dp">
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="7dp" >
 
         <CheckBox
             android:id="@+id/cb6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cb6" />
+            android:text="@string/cb6" 
+            android:layout_marginLeft="5dp"/>
 
         <CheckBox
             android:id="@+id/cb7"
@@ -105,40 +109,42 @@
             android:text="@string/cb7" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/seekLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/distance_label" 
-        android:layout_marginLeft="12dp"
-        android:textStyle="bold"/>
-    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+         android:layout_marginTop="40dp">
+
+        <TextView
+            android:id="@+id/seekLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="@string/distance_label"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/seekText"
+            android:layout_width="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="20dp"
+            android:text="@string/seek_text_init" />
+
+    </LinearLayout>
+
     <SeekBar
         android:id="@+id/distanceSeeker"
-        android:layout_width="290dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" 
-        android:layout_gravity="center_horizontal"
-        android:max="350"
-        android:progress="5"/>
-
-    <TextView
-        android:id="@+id/seekText"
-        android:layout_width="40dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/seek_text_init" 
-        android:layout_gravity="center_horizontal"/>
+        android:layout_marginTop="20dp"
+        android:max="120"
+        android:progress="5" />
 
     <Button
         android:id="@+id/btnSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:onClick="searchRestaurants"
         android:text="@string/btn_search" />
 
 </LinearLayout>
-
-
