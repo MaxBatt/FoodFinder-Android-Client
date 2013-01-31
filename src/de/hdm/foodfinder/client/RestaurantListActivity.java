@@ -9,10 +9,13 @@ import com.google.gson.JsonParser;
 
 import de.hdm.foodfinder.client.helpers.Restaurant;
 import de.hdm.foodfinder.client.helpers.RestaurantArrayAdapter;
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -25,7 +28,7 @@ import android.widget.ListView;
  * dieser den Listenadapter
  * 
  * @author Max Batt
-  */
+ */
 public class RestaurantListActivity extends ListActivity implements
 		OnItemClickListener {
 
@@ -59,14 +62,20 @@ public class RestaurantListActivity extends ListActivity implements
 			// System.out.println(restaurant.getAddress());
 		}
 
-		// Adapter befüllen
-		adapter = new RestaurantArrayAdapter(this, restaurants);
-		setListAdapter(adapter);
+		// Wenn Restaurants gefunden
+		if (restaurants.size() > 0) {
 
-		// ListView befüllen
-		ListView listView = getListView();
-		// OnItemClickListener setzen
-		listView.setOnItemClickListener(this);
+			// Adapter befüllen
+			adapter = new RestaurantArrayAdapter(this, restaurants);
+			setListAdapter(adapter);
+
+			// ListView befüllen
+			ListView listView = getListView();
+			// OnItemClickListener setzen
+			listView.setOnItemClickListener(this);
+		} else {
+			showDialog(getString(R.string.err_no_entries));
+		}
 
 	}
 
@@ -84,6 +93,32 @@ public class RestaurantListActivity extends ListActivity implements
 		myIntent.putExtra("actLatitude", actLatitude);
 		myIntent.putExtra("actLongitude", actLongitude);
 		startActivity(myIntent);
+	}
+	
+	
+	/**	
+	 * showDialog
+	 * 
+	 * @param msg
+	 * 
+	 * zeigt Fehlermeldung an, falls keine Restaurants mit den entsprechenden Kriterein gefunden wurden
+	 */
+	protected void showDialog(String msg) {
+		new AlertDialog.Builder(RestaurantListActivity.this).setMessage(msg)
+
+		// Standort-Button
+				.setPositiveButton(getString(R.string.back_to_search),
+				// Click Listener
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								// Dialog schließen
+								dialog.cancel();
+								// Standortzugriff aufrufen
+								RestaurantListActivity.super.onBackPressed();
+							}
+						}
+				// Dialog einblenden
+				).create().show();
 	}
 
 }

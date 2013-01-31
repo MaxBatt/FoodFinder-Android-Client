@@ -92,7 +92,15 @@ public class Restaurant {
 		return avgRating;
 	}
 
-	// Implodiert String Array
+	/**
+	 * implode
+	 *  
+	 * @param separator
+	 * @param data
+	 * @return String
+	 * 
+	 * Gibt ein Array als kommagetrennte Liste (String) aus
+	 */
 	public static String implode(String separator, String... data) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < data.length - 1; i++) {
@@ -106,7 +114,14 @@ public class Restaurant {
 		sb.append(data[data.length - 1]);
 		return sb.toString();
 	}
-
+	
+	
+	/**	
+	 * getJson
+	 * @return json
+	 * 
+	 * Gibt das aktuelle Objekt als Json-String aus
+	 */
 	public String getJson() {
 		Gson gson = new Gson();
 		String json = gson.toJson(this);

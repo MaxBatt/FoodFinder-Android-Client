@@ -85,7 +85,13 @@ public class RestaurantActivity extends Activity {
 
 	}
 
-	// AsyncTask zum runterladen des Bilds
+	/**
+	 * getPhoto
+	 * 
+	 * @author Max Batt
+	 * 
+	 *         AsyncTaskt zum Runterladen eines Bilds
+	 */
 	private class getPhoto extends AsyncTask<String, Void, Bitmap> {
 
 		ProgressDialog waitingDialog = new ProgressDialog(
@@ -145,9 +151,16 @@ public class RestaurantActivity extends Activity {
 		}
 	};
 
-	// Wird beim Klick auf Karte zeigen ausgeführt
-	// gibt die aktuellen Koordinaten, die Restaurantkoordinaten und
-	// JSON-Interpretation des aktuellen Restaurants an MyMapActivity weiter.
+
+	/**
+	 * showMap
+	 * 
+	 * wird beim Klick auf Karte anzeigen ausgeführt
+	 * 
+	 * gibt die aktuellen Koordinaten, die Restaurantkoordinaten und
+	 * 
+	 * JSON-Interpretation des aktuellen Restaurants an MyMapActivity weiter.
+	 */
 	public void showMap(View view) {
 		Intent myIntent = new Intent(this, MyMapActivity.class);
 		myIntent.putExtra("actLatitude", actLatitude);

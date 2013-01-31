@@ -53,8 +53,13 @@ public class MainActivity extends Activity {
 		locTask.execute(new Boolean[] { true });
 	}
 
-	/*
-	 * AsyncTask für die Standortsermittlung
+	/**
+	 * LocationTask
+	 * 
+	 * AnsycTask für die Standortermittlung
+	 * 
+	 * @author Max Batt
+	 * 
 	 */
 	class LocationTask extends AsyncTask<Boolean, Integer, Boolean> {
 
@@ -102,6 +107,15 @@ public class MainActivity extends Activity {
 			}
 		}
 
+		/**
+		 * showDialog
+		 * 
+		 * @param msg
+		 * 
+		 * Gibt eine Meldung mit dem gegebenen String aus
+		 * 
+		 * Hat Abbrechen Button und Button, der zu den Standorteinstellungen fürht
+		 */
 		protected void showDialog(String msg) {
 			new AlertDialog.Builder(MainActivity.this).setMessage(msg)
 
@@ -135,6 +149,12 @@ public class MainActivity extends Activity {
 
 	// Bei Klick auf FindFood Button FindFoodActivity aufrufen
 	// Intent-Extras: lat und long des aktuellen Standorts
+	
+	/**	
+	 * findFood
+	 * 
+	 * wird bei Klick auf FindFood Button ausgeführt
+	 */
 	public void findFood(View view) {
 		Intent myIntent = new Intent(this, FindFoodActivity.class);
 		myIntent.putExtra("actLatitude", loc.getLat());

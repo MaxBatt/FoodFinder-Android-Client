@@ -34,15 +34,14 @@ import android.widget.Toast;
  * FindFoodActivity
  * 
  * Formular zum Suchen von Restaurants Beim Klick auf Suchen werden die
- * Parameter ausgewertet und eine entsprechende URL generiert. Aus dem Ergebnis
- * der Abfrage wird an die RestaurantListActivity weitergegeben
+ * Parameter ausgewertet und eine entsprechende URL generiert. Das Ergebnis der
+ * Abfrage wird an die RestaurantListActivity weitergegeben
  * 
  * @author Max Batt
  */
 public class FindFoodActivity extends Activity {
 	// URL zum DB-Server
-	private String serverUrl = "http://pfronhaus.dlinkddns.com:4567/restaurants?";
-
+	private String serverUrl;
 	private String latitude;
 	private String longitude;
 
@@ -65,6 +64,9 @@ public class FindFoodActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.find_food);
+
+		// ServerURL
+		serverUrl = getString(R.string.server_url);
 
 		// Extras holen
 		Bundle extras = getIntent().getExtras();
@@ -147,7 +149,13 @@ public class FindFoodActivity extends Activity {
 
 	}
 
-	// Wird beim Klick auf Suchen ausgeführt
+	/**
+	 * searchRestaurants
+	 * 
+	 * wird beim Klick auf Suchen ausgeführt
+	 * 
+	 * @param view
+	 */
 	public void searchRestaurants(View view) {
 		// Params, die an die URL gehängt werden
 		String params = "";
@@ -192,8 +200,11 @@ public class FindFoodActivity extends Activity {
 		task.execute(new String[] { serverUrl + params });
 	}
 
-	/*
+	/**
+	 * searchTask
+	 * 
 	 * AnsycTask für Suchanfrage an den Server Kriegt Restaurantliste als JSON
+	 * 
 	 * vom Server und gibt sie an die RestaurantListActivity weiter
 	 */
 	private class SearchTask extends AsyncTask<String, Void, String> {

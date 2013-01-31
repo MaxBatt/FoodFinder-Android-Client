@@ -1,4 +1,7 @@
 <resources>
+    
+    <string name="server_url">http://pfronhaus.dlinkddns.com:4567/restaurants?</string>
+    
 
     <string name="app_name">FoodFinder</string>
     <string name="msg_view_init">Dein Standort wird abgerufen</string>
@@ -35,7 +38,8 @@
     <string name="loading_restaurant">Restaurant wird geladen</string>
     <string name="btn_map">Karte anzeigen</string>
     <string name="your_location">Dein Standort</string>
-    
+    <string name="back_to_search">Zurück zur Suche</string>
+    <string name="err_no_entries">Deine Suche hat leider keine Treffer erzielt.</string>
 
     <string-array name="regions_array">
         <item></item>
